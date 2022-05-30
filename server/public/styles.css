@@ -28,4 +28,8 @@ body {
   border-radius: 25px;
 }
 
-@media screen min-width
+@media screen and (max-width: 390px) {
+  .search-bar {
+    height: 10rem;
+  }
+}
