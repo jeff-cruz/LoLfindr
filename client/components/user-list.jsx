@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class userList extends React.Component {
+export default class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,7 +9,7 @@ export default class userList extends React.Component {
   }
 
   componentDidMount() {
-    fetch()
+    fetch('/api/users')
       .then(res => res.json())
       .then(users => this.setState({ users }));
   }
@@ -18,6 +18,7 @@ export default class userList extends React.Component {
     return (
       <div className='container'>
         <div className='row'>
+          <div className='user-list'>
           {
             this.state.users.map(user => (
               <div key={user.userId} className='col-12 col-md-6 col-lg-4'>
@@ -25,6 +26,7 @@ export default class userList extends React.Component {
               </div>
             ))
           }
+          </div>
         </div>
       </div>
     );
@@ -39,6 +41,7 @@ function User(props) {
       className='text-dark card mb-4 shadow-sm text-decoration-none'>
       <img src={imageUrl} className='card-img-top' alt={name} />
       <div className='card-body'>
+        hi
         <h5 className='card-title'> { name } </h5>
         <p>Rank: { rank }</p>
         <p>Roles: { role }</p>

@@ -28,6 +28,11 @@ body {
   border-radius: 25px;
 }
 
+.user-list {
+  min-height: 100%;
+  width: auto;
+}
+
 @media screen and (min-width: 391px) {
   .search-bar {
     height: 4rem;

@@ -1,5 +1,4 @@
 insert into "users" (
-  "userId",
   "username",
   "hashedPassword",
   "createdAt",
@@ -7,8 +6,12 @@ insert into "users" (
   "name",
   "bio",
   "profile"
-) values (
-  1,
-  'Soren',
+  ) values (
+  'Peter',
   'password',
+  'now',
+  '/images/doublelift.png',
+  'Doublelift',
+  'peggers',
+  '"yes"'
 )
