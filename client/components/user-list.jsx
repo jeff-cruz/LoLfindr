@@ -42,7 +42,7 @@ function User(props) {
         <h5 className='card-title text-center'> { name } </h5>
         <p>Rank: { rank }</p>
         <p>Roles: { role }</p>
-        <p>Champions: { championId }</p>
+        <p className='text-center'>Champions: { championId }</p>
       </div>
     </a>
   );

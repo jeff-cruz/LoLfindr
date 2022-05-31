@@ -15,10 +15,13 @@ app.use(express.static(publicPath));
 
 app.get('/api/users', (req, res, next) => {
   const sql = `
-    select "userId",
-          "name",
-          "imageUrl"
+    select "users"."userId",
+          "users"."name",
+          "users"."imageUrl",
+          "userChampions"."championIdOne"
     from "users"
+    left join "userChampions" using ("userId")
+    where "userId" = 1;
   `;
   db.query(sql)
     .then(result => res.json(result.rows))
@@ -30,3 +33,5 @@ app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
+
+// left join, takes everything in the left table and displays it
