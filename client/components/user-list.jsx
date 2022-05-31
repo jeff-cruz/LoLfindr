@@ -16,17 +16,15 @@ export default class UserList extends React.Component {
 
   render() {
     return (
-      <div className='container'>
+      <div className='container user-list'>
         <div className='row'>
-          <div className='user-list'>
           {
             this.state.users.map(user => (
-              <div key={user.userId} className='col-12 col-md-6 col-lg-4'>
+              <div key={user.userId} className=' user-card col-12 col-md-6 col-lg-4'>
                 <User user={user} />
               </div>
             ))
           }
-          </div>
         </div>
       </div>
     );
@@ -41,8 +39,7 @@ function User(props) {
       className='text-dark card mb-4 shadow-sm text-decoration-none'>
       <img src={imageUrl} className='card-img-top' alt={name} />
       <div className='card-body'>
-        hi
-        <h5 className='card-title'> { name } </h5>
+        <h5 className='card-title text-center'> { name } </h5>
         <p>Rank: { rank }</p>
         <p>Roles: { role }</p>
         <p>Champions: { championId }</p>

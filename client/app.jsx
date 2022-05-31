@@ -7,7 +7,12 @@ import { parseRoute } from './lib/parse-route';
 export default class App extends React.Component {
 
   renderPage() {
-    return <SearchBar />;
+    return (
+      <>
+        <SearchBar />
+        <UserList />
+      </>
+    );
   }
 
   render() {
