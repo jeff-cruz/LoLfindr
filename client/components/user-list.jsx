@@ -40,18 +40,18 @@ function User(props) {
       <img src={imageUrl} className='card-img-top' alt={name} />
       <div className='card-body text-white '>
         <h3 className='card-title text-center'> { name } </h3>
-        <p>Rank:
-          <img className='rank-icon' src={rankUrl}></img>
+        <p className='rank-title'>Rank:
+          <img className='card-rank-icon' src={rankUrl}></img>
         </p>
-        <p>Roles:
-          <img className='role-icon' src={ roles[0].roleUrl }></img>
-          <img className='role-icon' src={ roles[1].roleUrl }></img>
+        <p className='role-title'>Roles:
+          <img className='card-role-icon' src={ roles[0].roleUrl }></img>
+          <img className='card-role-icon' src={ roles[1].roleUrl }></img>
         </p>
         <p className='text-center'>Champions:
           <div>
-            <img className='champion-icon' src={ champions[0].championUrl }></img>
-            <img className='champion-icon' src={ champions[1].championUrl }></img>
-            <img className='champion-icon' src={ champions[2].championUrl }></img>
+            <img className='card-champion-icon' src={ champions[0].championUrl }></img>
+            <img className='card-champion-icon' src={ champions[1].championUrl }></img>
+            <img className='card-champion-icon' src={ champions[2].championUrl }></img>
           </div>
         </p>
       </div>

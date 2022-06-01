@@ -54,6 +54,14 @@ insert into "users" (
   'Doublelift',
   'poggers',
   'Bronze'
+), (
+  'Faker',
+  'password',
+  'now',
+  '/images/faker.webp',
+  'Faker',
+  'GOAT',
+  'Grandmaster'
 );
 
 insert into "roles" (
@@ -587,6 +595,20 @@ insert into "userChampions" (
   'Ezreal'
 );
 
+insert into "userChampions" (
+  "userId",
+  "championId"
+) values (
+  3,
+  'Zed'
+), (
+  3,
+  'Azir'
+), (
+  3,
+  'Orianna'
+);
+
 
 insert into "userRoles" (
   "userId",
@@ -608,4 +630,15 @@ insert into "userRoles" (
 ), (
   2,
   'Support'
+);
+
+insert into "userRoles" (
+  "userId",
+  "roleId"
+) values (
+  3,
+  'Mid'
+), (
+  3,
+  'Top'
 );

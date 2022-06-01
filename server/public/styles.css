@@ -1,3 +1,8 @@
+a,
+button {
+  cursor: pointer;
+}
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -33,6 +38,16 @@ body {
   z-index: 2;
 }
 
+.card {
+  width: 100%;
+}
+
+.card-img-top {
+  width: 100%;
+  min-height: 15rem;
+  object-fit: cover;
+}
+
 .card-body {
   background-color: hsl(256deg, 100%, 76%);
   font-family: Poppins, sans-serif;
@@ -51,21 +66,21 @@ body {
   padding-right: calc(var(--bs-gutter-x) * 1.5);
 }
 
-.rank-icon {
+.card-rank-icon {
   width: 5rem;
   height: 5rem;
   margin-left: 5rem;
   margin-right: 5rem;
 }
 
-.role-icon {
-  width: 3.5rem;
-  height: 3.5rem;
+.card-role-icon {
+  width: 20%;
+  height: 20%;
   margin-left: 2rem;
   margin-right: 2rem;
 }
 
-.champion-icon {
+.card-champion-icon {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   width: 4.5rem;
@@ -76,8 +91,44 @@ span {
   align-content: center;
 }
 
-@media screen and (min-width: 391px) {
+/* single column */
+@media screen and (min-width: 391px) and (max-width: 768px) {
   .search-bar {
+    height: 10rem;
+  }
+
+  .card-rank-icon {
+    margin-left: 9rem;
+    margin-right: 9rem;
+  }
+
+  .card-role-icon {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+/* double column and wider */
+@media screen and (min-width: 769px) {
+  .search-bar {
+    height: 4rem;
+  }
+}
+
+/* triple column */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .card-role-icon {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .card-rank-icon {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+
+  .card-champion-icon {
+    width: 4rem;
     height: 4rem;
   }
 }
