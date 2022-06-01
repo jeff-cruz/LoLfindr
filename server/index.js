@@ -48,8 +48,31 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// get user card data by searching by rank
+app.get('/api/search', (req, res, next) => {
+  // const rank = (req.query.rankId);
+  const sql = `
+        select "u"."rankId",
+                "rk".*
+    from "users" as "u"
+    join "ranks" as "rk" using ("rankId")
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
+
+// api route
+// app.get /api/search
+// req.query not req.params
+/// httpie docs on http strings/params
+// 'key'=='value'
+// rank == gold
+// console.log( req.query.rank)
