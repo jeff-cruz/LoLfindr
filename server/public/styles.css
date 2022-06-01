@@ -1,0 +1,134 @@
+a,
+button {
+  cursor: pointer;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  color: white;
+  background: linear-gradient(0.375turn, #4724a7, #a585ff);
+}
+
+.logo {
+  height: 4rem;
+  width: auto;
+}
+
+.glass-container {
+  margin-top: 5rem;
+  width: 70rem;
+  height: 20rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  border: 0.5px solid white;
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.search-bar {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 10rem;
+  border-radius: 25px;
+  position: sticky;
+  z-index: 2;
+}
+
+.card {
+  width: 100%;
+}
+
+.card-img-top {
+  width: 100%;
+  min-height: 15rem;
+  object-fit: cover;
+}
+
+.card-body {
+  background-color: hsl(256deg, 100%, 76%);
+  font-family: Poppins, sans-serif;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.user-list {
+  margin-top: 1.5rem;
+}
+
+.user-card {
+  padding-left: calc(var(--bs-gutter-x) * 1.5);
+  padding-right: calc(var(--bs-gutter-x) * 1.5);
+}
+
+.card-rank-icon {
+  width: 5rem;
+  height: 5rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.card-role-icon {
+  width: 20%;
+  height: 20%;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.card-champion-icon {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+span {
+  align-content: center;
+}
+
+/* single column */
+@media screen and (min-width: 391px) and (max-width: 768px) {
+  .search-bar {
+    height: 10rem;
+  }
+
+  .card-rank-icon {
+    margin-left: 9rem;
+    margin-right: 9rem;
+  }
+
+  .card-role-icon {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+/* double column and wider */
+@media screen and (min-width: 769px) {
+  .search-bar {
+    height: 4rem;
+  }
+}
+
+/* triple column */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .card-role-icon {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .card-rank-icon {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+
+  .card-champion-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+}
