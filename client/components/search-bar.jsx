@@ -5,8 +5,10 @@ export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ranks: []
+      ranks: [],
+      rankValue: null
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -14,6 +16,10 @@ export default class SearchBar extends React.Component {
     fetch('/api/ranks')
       .then(res => res.json())
       .then(ranks => this.setState({ ranks }));
+  }
+
+  handleChange(event) {
+    this.setState({ rankValue: event.target.value });
   }
 
   handleSubmit(event) {
@@ -27,9 +33,11 @@ export default class SearchBar extends React.Component {
           <form className='poppins-font filter-rank'>
             <Select
               className='filter-rank-select'
-              placeholder="Select Rank"
+              placeholder='Select Rank'
+              onChange={this.handleChange}
               options={ this.state.ranks }
               components= {{ Option }}
+              value={ this.state.rankValue }
             />
           </form>
         </div>
@@ -42,7 +50,7 @@ function Option(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div ref={innerRef} {...innerProps}>
-      <img className='select-rank-icon' src={ data.rankUrl}></img>
+      <img className='select-rank-icon' src={ data.rankUrl }></img>
       <span> {data.rankId} </span>
     </div>
   );
