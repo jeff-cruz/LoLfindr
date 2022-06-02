@@ -6,7 +6,6 @@ export default class FilterRank extends React.Component {
     this.state = {
       selectedOption: null
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange = selectedOption => {

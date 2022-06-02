@@ -44,17 +44,19 @@ function User(props) {
           Rank:
           <img className='card-rank-icon' src={ rankUrl }></img>
         </p>
-        <p className='role-title'>Roles:
+        <p className='role-title'>
+          Roles:
           <img className='card-role-icon' src={ roles[0].roleUrl }></img>
           <img className='card-role-icon' src={ roles[1].roleUrl }></img>
         </p>
-        <p className='text-center'>Champions:
-          <div>
+        <p className='text-center'>
+        Champions:
+        </p>
+          <div className='text-center'>
             <img className='card-champion-icon' src={ champions[0].championUrl }></img>
             <img className='card-champion-icon' src={ champions[1].championUrl }></img>
             <img className='card-champion-icon' src={ champions[2].championUrl }></img>
           </div>
-        </p>
       </div>
     </a>
   );

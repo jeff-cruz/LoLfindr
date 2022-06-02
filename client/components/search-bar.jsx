@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterRank from './filter-rank';
+import Select from 'react-select';
 
 export default class SearchBar extends React.Component {
   constructor(props) {
@@ -25,10 +25,28 @@ export default class SearchBar extends React.Component {
       <div className='navbar sticky-top search-bar d-flex'>
         <div>
           <form className='poppins-font filter-rank'>
-            <FilterRank />
+            <Select
+              className='filter-rank-select'
+              placeholder="Select Rank"
+              options={ this.state.ranks }
+              components= {{ Option }}
+            />
           </form>
         </div>
       </div>
     );
   }
 }
+
+function Option(props) {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div ref={innerRef} {...innerProps}>
+      <img className='select-rank-icon' src={ data.rankUrl}></img>
+      <span> {data.rankId} </span>
+    </div>
+  );
+}
+// onChange of select update state with selected rank
+// onSubmit update the hash #searchresults?rank='rank'
+// get userlist to refetch using specific rank
