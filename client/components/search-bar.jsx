@@ -1,17 +1,34 @@
 import React from 'react';
+import FilterRank from './filter-rank';
 
-export default function SearchBar(props) {
-  // const { rankId, rankUrl, ranks} = props.user;
-  return (
-    <div className='navbar sticky-top search-bar d-flex'>
-      {/* <form>
-        <label>
-          Sort by Rank:
-          <select>
-            <option value='Iron'><img src= { ranks[0].rankUrl } /></option>
-            </select>
-        </label>
-      </form> */}
-    </div>
-  );
+export default class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ranks: []
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/api/ranks')
+      .then(res => res.json())
+      .then(ranks => this.setState({ ranks }));
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <div className='navbar sticky-top search-bar d-flex'>
+        <div>
+          <form className='poppins-font filter-rank'>
+            <FilterRank />
+          </form>
+        </div>
+      </div>
+    );
+  }
 }

@@ -49,13 +49,29 @@ app.get('/api/users', (req, res, next) => {
 });
 
 // get user card data by searching by rank
-app.get('/api/search', (req, res, next) => {
-  // const rank = (req.query.rankId);
+app.get('/api/ranks', (req, res, next) => {
   const sql = `
-        select "u"."rankId",
-                "rk".*
+        select  "rankId",
+                "rankUrl"
+    from "ranks"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get user card data by searching by rank
+app.get('/api/search', (req, res, next) => {
+  // const rank = req.query.rank;
+  const sql = `
+        select  "u"."userId",
+                "u"."rankId",
+                "rk"."rankId"
     from "users" as "u"
     join "ranks" as "rk" using ("rankId")
+    group by "u"."userId", "rk"."rankId";
   `;
 
   db.query(sql)

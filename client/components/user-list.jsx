@@ -37,11 +37,12 @@ function User(props) {
     <a
       href={`#users?userId=${userId}`}
       className='text-dark card mb-4 shadow-sm text-decoration-none'>
-      <img src={imageUrl} className='card-img-top' alt={name} />
-      <div className='card-body text-white '>
+      <img src={ imageUrl } className='card-img-top' alt={ name } />
+      <div className='card-body text-white poppins-font'>
         <h3 className='card-title text-center'> { name } </h3>
-        <p className='rank-title'>Rank:
-          <img className='card-rank-icon' src={rankUrl}></img>
+        <p className='rank-title'>
+          Rank:
+          <img className='card-rank-icon' src={ rankUrl }></img>
         </p>
         <p className='role-title'>Roles:
           <img className='card-role-icon' src={ roles[0].roleUrl }></img>

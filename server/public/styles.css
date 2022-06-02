@@ -16,6 +16,10 @@ body {
   width: auto;
 }
 
+.poppins-font {
+  font-family: Poppins, sans-serif;
+}
+
 .glass-container {
   margin-top: 5rem;
   width: 70rem;
@@ -50,7 +54,6 @@ body {
 
 .card-body {
   background-color: hsl(256deg, 100%, 76%);
-  font-family: Poppins, sans-serif;
 }
 
 .card-title {
@@ -85,6 +88,28 @@ body {
   margin-right: 0.5rem;
   width: 4.5rem;
   height: 4.5rem;
+}
+
+.filter-rank {
+  color: black;
+  font-size: 1.2rem;
+  margin-left: 4rem;
+}
+
+.filter-rank-select {
+  width: 15rem;
+}
+
+.filter-text {
+  color: white;
+  display: inline-block;
+  background-color: black;
+  width: 10rem;
+}
+
+.select-rank-icon {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 span {
