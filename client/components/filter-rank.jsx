@@ -16,6 +16,13 @@ export default class FilterRank extends React.Component {
   render() {
     const ranks = [
       {
+        value: null,
+        label: (
+          <>
+            <span> Select Rank</span>
+          </>
+        )
+      }, {
         value: 'Iron',
         label: (
         <>
