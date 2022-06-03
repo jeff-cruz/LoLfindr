@@ -48,12 +48,40 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get user card data by searching by rank
+// get ranks data
 app.get('/api/ranks', (req, res, next) => {
   const sql = `
         select  "rankId",
                 "rankUrl"
     from "ranks"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get roles data
+app.get('/api/roles', (req, res, next) => {
+  const sql = `
+        select  "roleId",
+                "roleUrl"
+    from "roles"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get roles data
+app.get('/api/champions', (req, res, next) => {
+  const sql = `
+        select  "championId",
+                "championUrl"
+    from "champions"
   `;
 
   db.query(sql)

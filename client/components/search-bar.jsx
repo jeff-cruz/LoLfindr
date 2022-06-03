@@ -1,14 +1,26 @@
 import React from 'react';
 import Select from 'react-select';
 
+const customStyles = {
+  valueContainer: (provided, state) => {
+    return {
+      ...provided, display: 'flex'
+    };
+  }
+};
+
 export default class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       ranks: [],
-      rankValue: null
+      roles: [],
+      // champions: [],
+      selectedRank: '',
+      selectedRole: ''
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeRank = this.handleChangeRank.bind(this);
+    this.handleChangeRole = this.handleChangeRole.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -16,10 +28,22 @@ export default class SearchBar extends React.Component {
     fetch('/api/ranks')
       .then(res => res.json())
       .then(ranks => this.setState({ ranks }));
+
+    fetch('/api/roles')
+      .then(res => res.json())
+      .then(roles => this.setState({ roles }));
+
+    fetch('/api/champions')
+      .then(res => res.json())
+      .then(champions => this.setState({ champions }));
   }
 
-  handleChange(event) {
-    this.setState({ rankValue: event.target.value });
+  handleChangeRank(rank) {
+    this.setState({ selectedRank: rank });
+  }
+
+  handleChangeRole(role) {
+    this.setState({ selectedRole: role });
   }
 
   handleSubmit(event) {
@@ -29,16 +53,32 @@ export default class SearchBar extends React.Component {
   render() {
     return (
       <div className='navbar sticky-top search-bar d-flex'>
-        <div>
-          <form className='poppins-font filter-rank'>
-            <Select
-              className='filter-rank-select'
-              placeholder='Select Rank'
-              onChange={this.handleChange}
-              options={ this.state.ranks }
-              components= {{ Option }}
-              value={ this.state.rankValue }
-            />
+        <div className='row'>
+          <form className='poppins-font filter-form'>
+              <div className='filter-ranks-container'>
+                <Select
+                  styles= { customStyles }
+                  isSearchable = { false }
+                  className='filter-select'
+                  placeholder='Select Rank'
+                  options={ this.state.ranks }
+                  components= {{ Option: RankOptions, SingleValue: RankOptions }}
+                  value={ this.state.selectedRank }
+                  onChange= { this.handleChangeRank }
+                />
+              </div>
+              <div className='filter-roles-container'>
+                <Select
+                  styles={ customStyles }
+                  isSearchable={ false }
+                  className='filter-select'
+                  placeholder='Select Role'
+                  options={ this.state.roles }
+                  components={{ Option: RoleOptions, SingleValue: RoleOptions }}
+                  value={ this.state.selectedRole }
+                  onChange={ this.handleChangeRole }
+                />
+            </div>
           </form>
         </div>
       </div>
@@ -46,15 +86,35 @@ export default class SearchBar extends React.Component {
   }
 }
 
-function Option(props) {
+function RankOptions(props) {
   const { data, innerRef, innerProps } = props;
   return (
-    <div ref={innerRef} {...innerProps}>
+    <div value={data.rankId} ref={innerRef} {...innerProps}>
       <img className='select-rank-icon' src={ data.rankUrl }></img>
       <span> {data.rankId} </span>
     </div>
   );
 }
+
+function RoleOptions(props) {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div value={data.roleId} ref={innerRef} {...innerProps}>
+      <img className='select-role-icon' src={data.roleUrl}></img>
+      <span> {data.roleId} </span>
+    </div>
+  );
+}
+
+// function ChampionOptions(props) {
+//   const { data, innerRef, innerProps } = props;
+//   return (
+//     <div value={data.roleId} ref={innerRef} {...innerProps}>
+//       <img className='select-role-icon' src={data.roleUrl}></img>
+//       <span> {data.roleId} </span>
+//     </div>
+//   );
+// }
 // onChange of select update state with selected rank
 // onSubmit update the hash #searchresults?rank='rank'
 // get userlist to refetch using specific rank

@@ -90,14 +90,20 @@ body {
   height: 4.5rem;
 }
 
-.filter-rank {
+.filter-form {
   color: black;
   font-size: 1.2rem;
   margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.filter-rank-select {
+.filter-select {
   width: 15rem;
+  min-height: 35px;
+  height: 35px;
+  color: black;
 }
 
 .filter-text {
@@ -107,9 +113,23 @@ body {
   width: 10rem;
 }
 
+.filter-ranks-container {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .select-rank-icon {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+.select-role-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.search-container {
+  justify-content: space-evenly;
 }
 
 span {
@@ -135,13 +155,18 @@ span {
 
 /* double column and wider */
 @media screen and (min-width: 769px) {
-  .search-bar {
-    height: 4rem;
-  }
+  /* .search-bar {
+  height: 4rem;
+} */
 }
 
 /* triple column */
-@media screen and (min-width: 992px) and (max-width: 1199px) {
+@media screen and (min-width: 992px) {
+  .filter-ranks-container {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
   .card-role-icon {
     margin-left: 1rem;
     margin-right: 1rem;
@@ -155,5 +180,13 @@ span {
   .card-champion-icon {
     width: 4rem;
     height: 4rem;
+  }
+
+  .search-bar {
+    height: 4rem;
+  }
+
+  .filter-form {
+    flex-direction: row;
   }
 }
