@@ -36,10 +36,14 @@ body {
 
 .search-bar {
   background-color: rgba(255, 255, 255, 0.5);
-  height: 10rem;
+  height: 12rem;
   border-radius: 25px;
   position: sticky;
   z-index: 2;
+}
+
+.navbar {
+  justify-content: center;
 }
 
 .card {
@@ -93,10 +97,10 @@ body {
 .filter-form {
   color: black;
   font-size: 1.2rem;
-  margin-left: 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  width: 100%;
+  height: auto;
 }
 
 .filter-select {
@@ -113,23 +117,18 @@ body {
   width: 10rem;
 }
 
-.filter-ranks-container {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.filter-container {
+  width: 15rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
-.select-rank-icon {
+.filter-icons {
   width: 1.2rem;
   height: 1.2rem;
-}
-
-.select-role-icon {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-.search-container {
-  justify-content: space-evenly;
+  margin-left: 0.3rem;
 }
 
 span {
@@ -144,6 +143,15 @@ span {
   color: black;
   font-family: Poppins, sans-serif;
   border: 1px solid black;
+  text-align: center;
+  width: 6rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.button-container {
+  margin: 0.5rem auto;
+  text-align: center;
 }
 
 .search-button:hover {
@@ -154,10 +162,15 @@ span {
   transform: translateY(2px);
 }
 
+.search-container {
+  display: flex;
+  flex-direction: column;
+}
+
 /* single column */
 @media screen and (min-width: 391px) and (max-width: 768px) {
   .search-bar {
-    height: 10rem;
+    height: 12rem;
   }
 
   .card-rank-icon {
@@ -180,8 +193,8 @@ span {
 
 /* triple column */
 @media screen and (min-width: 992px) {
-  .filter-ranks-container {
-    margin-top: 0;
+  .filter-container {
+    margin-top: 0.25rem;
     margin-bottom: 0;
   }
 
@@ -204,7 +217,8 @@ span {
     height: 4rem;
   }
 
-  .filter-form {
+  .search-container {
+    display: flex;
     flex-direction: row;
   }
 }

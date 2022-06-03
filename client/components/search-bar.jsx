@@ -63,50 +63,54 @@ export default class SearchBar extends React.Component {
 
   render() {
     const { rankId } = this.state.selectedRank;
+    const { roleId } = this.state.selectedRole;
+    const { championId } = this.state.selectedChampion;
     return (
       <div className='navbar sticky-top search-bar d-flex'>
-        <div className='row'>
-          <form className='poppins-font filter-form'>
-              <div className='filter-ranks-container'>
-                <Select
-                  styles= { customStyles }
-                  isSearchable = { false }
-                  className='filter-select'
-                  placeholder='Select Rank'
-                  options={ this.state.ranks }
-                  components= {{ Option: RankOptions, SingleValue: RankOptions }}
-                  value={ this.state.selectedRank }
-                  onChange= { this.handleChangeRank }
-                />
-              </div>
-              <div className='filter-roles-container'>
-                <Select
-                  styles={ customStyles }
-                  isSearchable={ false }
-                  className='filter-select'
-                  placeholder='Select Role'
-                  options={ this.state.roles }
-                  components={{ Option: RoleOptions, SingleValue: RoleOptions }}
-                  value={ this.state.selectedRole }
-                  onChange={ this.handleChangeRole }
-                />
-            </div>
-            <div className='filter-champions-container'>
+        <form className='poppins-font filter-form'>
+          <div className='search-container'>
+            <div className='filter-container'>
               <Select
-                styles={customStyles}
-                isSearchable={false}
+                styles= { customStyles }
+                isSearchable = { false }
                 className='filter-select'
-                placeholder='Select Champion'
-                options={this.state.champions}
-                components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
-                value={this.state.selectedChampion}
-                onChange={this.handleChangeChampion}
+                placeholder='Select Rank'
+                options={ this.state.ranks }
+                components= {{ Option: RankOptions, SingleValue: RankOptions }}
+                value={ this.state.selectedRank }
+                onChange= { this.handleChangeRank }
               />
             </div>
-            <a href={`#filter?rank=${rankId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
-          </form>
+            <div className='filter-container'>
+              <Select
+                styles={ customStyles }
+                isSearchable={ false }
+                className='filter-select'
+                placeholder='Select Role'
+                options={ this.state.roles }
+                components={{ Option: RoleOptions, SingleValue: RoleOptions }}
+                value={ this.state.selectedRole }
+                onChange={ this.handleChangeRole }
+              />
+          </div>
+          <div className='filter-container'>
+            <Select
+              styles={ customStyles }
+              isSearchable={ false }
+              className='filter-select'
+              placeholder='Select Champion'
+              options={ this.state.champions }
+              components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+              value={ this.state.selectedChampion }
+              onChange={ this.handleChangeChampion }
+            />
+          </div>
+          <div className='button-container'>
+            <a href={`#filter?rank=${rankId}&role=${roleId}&champion=${championId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
+          </div>
         </div>
-      </div>
+      </form>
+    </div>
     );
   }
 }
@@ -115,7 +119,7 @@ function RankOptions(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.rankId} ref={innerRef} {...innerProps}>
-      <img className='select-rank-icon' src={ data.rankUrl }></img>
+      <img className='filter-icons' src={ data.rankUrl }></img>
       <span> {data.rankId} </span>
     </div>
   );
@@ -125,7 +129,7 @@ function RoleOptions(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.roleId} ref={innerRef} {...innerProps}>
-      <img className='select-role-icon' src={data.roleUrl}></img>
+      <img className='filter-icons' src={data.roleUrl}></img>
       <span> {data.roleId} </span>
     </div>
   );
@@ -135,7 +139,7 @@ function ChampionOptions(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.championId} ref={innerRef} {...innerProps}>
-      <img className='select-role-icon' src={data.championUrl}></img>
+      <img className='filter-icons' src={data.championUrl}></img>
       <span> {data.championId} </span>
     </div>
   );

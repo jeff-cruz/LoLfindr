@@ -34,6 +34,13 @@ export default class App extends React.Component {
           <UserList />
         </>
       );
+    } else if (route.path === 'filter') {
+      return (
+        <>
+          <SearchBar />
+          <UserList />
+        </>
+      );
     }
   }
 
