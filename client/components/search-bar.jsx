@@ -16,12 +16,14 @@ export default class SearchBar extends React.Component {
     this.state = {
       ranks: [],
       roles: [],
-      // champions: [],
+      champions: [],
       selectedRank: '',
-      selectedRole: ''
+      selectedRole: '',
+      selectedChampion: ''
     };
     this.handleChangeRank = this.handleChangeRank.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
+    this.handleChangeChampion = this.handleChangeChampion.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -45,6 +47,10 @@ export default class SearchBar extends React.Component {
 
   handleChangeRole(role) {
     this.setState({ selectedRole: role });
+  }
+
+  handleChangeChampion(champion) {
+    this.setState({ selectedChampion: champion });
   }
 
   handleSubmit(event) {
@@ -85,6 +91,18 @@ export default class SearchBar extends React.Component {
                   onChange={ this.handleChangeRole }
                 />
             </div>
+            <div className='filter-champions-container'>
+              <Select
+                styles={customStyles}
+                isSearchable={false}
+                className='filter-select'
+                placeholder='Select Champion'
+                options={this.state.champions}
+                components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+                value={this.state.selectedChampion}
+                onChange={this.handleChangeChampion}
+              />
+            </div>
             <a href={`#filter?rank=${rankId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
           </form>
         </div>
@@ -113,15 +131,15 @@ function RoleOptions(props) {
   );
 }
 
-// function ChampionOptions(props) {
-//   const { data, innerRef, innerProps } = props;
-//   return (
-//     <div value={data.roleId} ref={innerRef} {...innerProps}>
-//       <img className='select-role-icon' src={data.roleUrl}></img>
-//       <span> {data.roleId} </span>
-//     </div>
-//   );
-// }
+function ChampionOptions(props) {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div value={data.championId} ref={innerRef} {...innerProps}>
+      <img className='select-role-icon' src={data.championUrl}></img>
+      <span> {data.championId} </span>
+    </div>
+  );
+}
 //
 // onChange of select update state with selected rank
 // onSubmit update the hash #searchresults?rank='rank'
