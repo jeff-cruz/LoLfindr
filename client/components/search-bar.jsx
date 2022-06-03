@@ -85,7 +85,7 @@ export default class SearchBar extends React.Component {
                   onChange={ this.handleChangeRole }
                 />
             </div>
-            <a href={`#users?rank=${rankId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
+            <a href={`#filter?rank=${rankId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
           </form>
         </div>
       </div>

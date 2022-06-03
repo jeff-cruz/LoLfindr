@@ -14,16 +14,16 @@ export default class App extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   /**
-  //    * Listen for hash change events on the window object
-  //    * Each time the window.location.hash changes, parse
-  //    * it with the parseRoute() function and update state
-  //    */
-  //   window.addEventListener('hashchange', event => {
-  //     this.setState({ route: parseRoute(window.location.hash) });
-  //   });
-  // }
+  componentDidMount() {
+    /**
+     * Listen for hash change events on the window object
+     * Each time the window.location.hash changes, parse
+     * it with the parseRoute() function and update state
+     */
+    window.addEventListener('hashchange', event => {
+      this.setState({ route: parseRoute(window.location.hash) });
+    });
+  }
 
   renderPage() {
     const { route } = this.state;

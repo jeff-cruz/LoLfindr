@@ -91,19 +91,42 @@ app.get('/api/champions', (req, res, next) => {
 });
 
 // get user card data by searching by rank
-app.get('/api/users', (req, res, next) => {
-  // const { rank } = req.query;
+app.get('/api/filter', (req, res, next) => {
+  const { rank } = req.query;
   const sql = `
-        select  "u"."userId",
-                "u"."rankId",
-                "rk"."rankId"
-    from "users" as "u"
+    select "u"."userId",
+            "u"."name",
+            "u"."imageUrl",
+            "c"."champions",
+            "rl"."roles",
+            "rk".*
+      from "users" as "u"
     join "ranks" as "rk" using ("rankId")
-    group by "u"."userId", "rk"."rankId"
+    left join lateral (
+      select json_agg("c") as "champions"
+      from (
+        select "c".*
+        from "champions" as "c"
+        join "userChampions" as "uc" using ("championId")
+        where "uc"."userId" = "u"."userId"
+      ) as "c"
+    ) as "c" on true
+    left join lateral (
+      select json_agg("rl") as "roles"
+      from (
+        select "rl".*
+        from "roles" as "rl"
+        join "userRoles" as "url" using ("roleId")
+        where "url"."userId" = "u"."userId"
+      ) as "rl"
+    ) as "rl" on true
   `;
 
-  db.query(sql)
-    .then(result => res.json(result.rows))
+  db.query(sql, rank)
+    .then(result => {
+      const users = (result.rows);
+      res.json({ users });
+    })
     .catch(err => next(err));
 });
 
