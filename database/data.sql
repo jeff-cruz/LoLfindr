@@ -274,8 +274,8 @@ insert into "champions" (
   'Kled',
   '/images/champion-icons/Kled.png'
 ), (
-  'Kogmaw',
-  '/images/champion-icons/Kogmaw.png'
+  'KogMaw',
+  '/images/champion-icons/KogMaw.png'
 ), (
   'Leblanc',
   '/images/champion-icons/Leblanc.png'
