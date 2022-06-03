@@ -48,7 +48,7 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get user card data by searching by rank
+// get ranks data
 app.get('/api/ranks', (req, res, next) => {
   const sql = `
         select  "rankId",
@@ -62,16 +62,44 @@ app.get('/api/ranks', (req, res, next) => {
 
 });
 
+// get roles data
+app.get('/api/roles', (req, res, next) => {
+  const sql = `
+        select  "roleId",
+                "roleUrl"
+    from "roles"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get roles data
+app.get('/api/champions', (req, res, next) => {
+  const sql = `
+        select  "championId",
+                "championUrl"
+    from "champions"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
 // get user card data by searching by rank
-app.get('/api/search', (req, res, next) => {
-  // const rank = req.query.rank;
+app.get('/api/users', (req, res, next) => {
+  // const { rank } = req.query;
   const sql = `
         select  "u"."userId",
                 "u"."rankId",
                 "rk"."rankId"
     from "users" as "u"
     join "ranks" as "rk" using ("rankId")
-    group by "u"."userId", "rk"."rankId";
+    group by "u"."userId", "rk"."rankId"
   `;
 
   db.query(sql)
@@ -92,3 +120,8 @@ app.listen(process.env.PORT, () => {
 // 'key'=='value'
 // rank == gold
 // console.log( req.query.rank)
+
+// app.get(/api/users), (req,res)
+// const { rank } = req.query
+// select twhere rank = the rank
+// http -v get jsonplaceholder.typicode.com/posts?userId=2
