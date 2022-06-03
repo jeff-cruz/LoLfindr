@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+// import Redirect from './redirect';
 
 const customStyles = {
   valueContainer: (provided, state) => {
@@ -47,10 +48,15 @@ export default class SearchBar extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
+    // console.log('SelectedRank:', this.state.selectedRank);
+    // return (
+    // <Redirect to={`#searchresults?rank=${this.state.selectedRank}`} />
+    // );
   }
 
   render() {
+    const { rankId } = this.state.selectedRank;
     return (
       <div className='navbar sticky-top search-bar d-flex'>
         <div className='row'>
@@ -79,6 +85,7 @@ export default class SearchBar extends React.Component {
                   onChange={ this.handleChangeRole }
                 />
             </div>
+            <a href={`#users?rank=${rankId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
           </form>
         </div>
       </div>
@@ -115,6 +122,7 @@ function RoleOptions(props) {
 //     </div>
 //   );
 // }
+//
 // onChange of select update state with selected rank
 // onSubmit update the hash #searchresults?rank='rank'
 // get userlist to refetch using specific rank

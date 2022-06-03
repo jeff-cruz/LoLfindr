@@ -91,15 +91,15 @@ app.get('/api/champions', (req, res, next) => {
 });
 
 // get user card data by searching by rank
-app.get('/api/search', (req, res, next) => {
-  // const rank = req.query.rank;
+app.get('/api/users', (req, res, next) => {
+  // const { rank } = req.query;
   const sql = `
         select  "u"."userId",
                 "u"."rankId",
                 "rk"."rankId"
     from "users" as "u"
     join "ranks" as "rk" using ("rankId")
-    group by "u"."userId", "rk"."rankId";
+    group by "u"."userId", "rk"."rankId"
   `;
 
   db.query(sql)
@@ -120,3 +120,8 @@ app.listen(process.env.PORT, () => {
 // 'key'=='value'
 // rank == gold
 // console.log( req.query.rank)
+
+// app.get(/api/users), (req,res)
+// const { rank } = req.query
+// select twhere rank = the rank
+// http -v get jsonplaceholder.typicode.com/posts?userId=2

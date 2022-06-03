@@ -136,6 +136,20 @@ span {
   align-content: center;
 }
 
+.search-button {
+  text-decoration: none;
+  background-color: white;
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+  color: black;
+  font-family: Poppins, sans-serif;
+  border: 1px solid black;
+}
+
+.search-button:hover {
+  color: #9478e3;
+}
+
 /* single column */
 @media screen and (min-width: 391px) and (max-width: 768px) {
   .search-bar {
