@@ -131,7 +131,6 @@ app.get('/api/filter', (req, res, next) => {
       ) as "rl"
     ) as "rl" on true
     where "rankId" = $1
-
     `;
 
   const query = [rankId];
