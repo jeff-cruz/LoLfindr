@@ -96,12 +96,12 @@ app.get('/api/filter', (req, res, next) => {
   // const roleId = req.query.roleId;
   // const championId = req.query.championId;
 
-  // if (!rankId) {
-  //   res.status(400).json({
-  //     error: 'Valid rankId (string) are required fields'
-  //   });
-  //   return;
-  // }
+  if (!rankId) {
+    res.status(400).json({
+      error: 'Valid rankId (string) are required fields'
+    });
+    return;
+  }
 
   const sql = `
     select "u"."userId",
