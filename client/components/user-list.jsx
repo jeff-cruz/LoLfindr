@@ -14,6 +14,14 @@ export default class UserList extends React.Component {
       .then(users => this.setState({ users }));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.routeParams !== this.props.routeParams) {
+      fetch(`/api/filter?${this.props.routeParams}`)
+        .then(res => res.json())
+        .then(users => this.setState({ users }));
+    }
+  }
+
   render() {
     return (
       <div className='container user-list'>

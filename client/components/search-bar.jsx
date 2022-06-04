@@ -17,9 +17,9 @@ export default class SearchBar extends React.Component {
       ranks: [],
       roles: [],
       champions: [],
-      selectedRank: '',
-      selectedRole: '',
-      selectedChampion: ''
+      selectedRank: null,
+      selectedRole: null,
+      selectedChampion: null
     };
     this.handleChangeRank = this.handleChangeRank.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
@@ -54,20 +54,23 @@ export default class SearchBar extends React.Component {
   }
 
   handleSubmit(event) {
-    // event.preventDefault();
-    // console.log('SelectedRank:', this.state.selectedRank);
-    // return (
-    // <Redirect to={`#searchresults?rank=${this.state.selectedRank}`} />
-    // );
+    event.preventDefault();
+    const filter = new URLSearchParams();
+    // if (this.state.selectedRank !== null && this.state.selectedRole !== null && this.state.selectedChampion !== null) {
+    if (this.state.selectedRank !== null) {
+      filter.set('rankId', this.state.selectedRank.rankId);
+      // filter.set('roleId', this.state.selectedRole.roleId);
+      // filter.set('championId', this.state.selectedChampion.championId);
+      window.location.hash = `#filter?${filter}`;
+    } else {
+      alert('Rank, role and champion fields are required.');
+    }
   }
 
   render() {
-    const { rankId } = this.state.selectedRank;
-    const { roleId } = this.state.selectedRole;
-    const { championId } = this.state.selectedChampion;
     return (
       <div className='navbar sticky-top search-bar d-flex'>
-        <form className='poppins-font filter-form'>
+        <form className='poppins-font filter-form' onSubmit={this.handleSubmit} >
           <div className='search-container'>
             <div className='filter-container'>
               <Select
@@ -106,8 +109,11 @@ export default class SearchBar extends React.Component {
             />
           </div>
           <div className='button-container'>
-            <a href={`#filter?rank=${rankId}&role=${roleId}&champion=${championId}`} onClick={this.handleSubmit} className='search-button'>Search</a>
+            <button className='search-button'>Search</button>
           </div>
+          {/* <div className='reset-container'>
+            <button onClick={this.handleReset} className='search-button'>Reset</button>
+          </div> */}
         </div>
       </form>
     </div>

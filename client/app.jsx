@@ -15,11 +15,6 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    /**
-     * Listen for hash change events on the window object
-     * Each time the window.location.hash changes, parse
-     * it with the parseRoute() function and update state
-     */
     window.addEventListener('hashchange', event => {
       this.setState({ route: parseRoute(window.location.hash) });
     });
@@ -35,10 +30,11 @@ export default class App extends React.Component {
         </>
       );
     } else if (route.path === 'filter') {
+      const rankId = route.params.get('rankId');
       return (
         <>
           <SearchBar />
-          <UserList />
+          <UserList routeParams={route.params} />;
         </>
       );
     }

@@ -92,7 +92,17 @@ app.get('/api/champions', (req, res, next) => {
 
 // get user card data by searching by rank
 app.get('/api/filter', (req, res, next) => {
-  const { rank } = req.query;
+  const rankId = req.query.rankId;
+  // const roleId = req.query.roleId;
+  // const championId = req.query.championId;
+
+  if (!rankId) {
+    res.status(400).json({
+      error: 'Valid rankId (string) are required fields'
+    });
+    return;
+  }
+
   const sql = `
     select "u"."userId",
             "u"."name",
@@ -120,12 +130,13 @@ app.get('/api/filter', (req, res, next) => {
         where "url"."userId" = "u"."userId"
       ) as "rl"
     ) as "rl" on true
-  `;
+    where "rankId" = $1
+    `;
 
-  db.query(sql, rank)
+  const query = [rankId];
+  db.query(sql, query)
     .then(result => {
-      const users = (result.rows);
-      res.json({ users });
+      res.json(result.rows);
     })
     .catch(err => next(err));
 });
@@ -135,16 +146,3 @@ app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
-
-// api route
-// app.get /api/search
-// req.query not req.params
-/// httpie docs on http strings/params
-// 'key'=='value'
-// rank == gold
-// console.log( req.query.rank)
-
-// app.get(/api/users), (req,res)
-// const { rank } = req.query
-// select twhere rank = the rank
-// http -v get jsonplaceholder.typicode.com/posts?userId=2
