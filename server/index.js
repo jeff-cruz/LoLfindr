@@ -92,7 +92,9 @@ app.get('/api/champions', (req, res, next) => {
 
 // get user card data by searching by rank
 app.get('/api/filter', (req, res, next) => {
-  const { rank } = req.query;
+  const rankId = req.query.rankId;
+  // const roleId = req.query.roleId;
+  // const { champion } = req.query.champion;
   const sql = `
     select "u"."userId",
             "u"."name",
@@ -120,12 +122,13 @@ app.get('/api/filter', (req, res, next) => {
         where "url"."userId" = "u"."userId"
       ) as "rl"
     ) as "rl" on true
+    where "rankId" = $1
   `;
 
-  db.query(sql, rank)
+  const query = [rankId];
+  db.query(sql, query)
     .then(result => {
-      const users = (result.rows);
-      res.json({ users });
+      res.json(result.rows);
     })
     .catch(err => next(err));
 });
