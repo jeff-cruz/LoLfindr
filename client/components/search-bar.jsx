@@ -56,16 +56,14 @@ export default class SearchBar extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const filter = new URLSearchParams();
-    if (this.state.selectedRank !== null) {
+    if (this.state.selectedRank !== null && this.state.selectedRole !== null && this.state.selectedChampion !== null) {
       filter.set('rankId', this.state.selectedRank.rankId);
-    } else if (this.state.selectedRole !== null) {
       filter.set('roleId', this.state.selectedRole.roleId);
-    } else if (this.state.selectedChampion !== null) {
       filter.set('championId', this.state.selectedChampion.championId);
+      window.location.hash = `#filter?${filter}`;
     } else {
-
+      alert('Rank, role and champion fields are required.');
     }
-    window.location.hash = `#filter?${filter}`;
   }
 
   render() {

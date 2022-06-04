@@ -15,17 +15,11 @@ export default class UserList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // check to see if the prevprops.routeparams !== this.props.routeparams
-    // if they are, refetch user list
-    // fetch using /api/filter
-    // console.log new route param
-
     if (prevProps.routeParams !== this.props.routeParams) {
       fetch(`/api/filter?${this.props.routeParams}`)
         .then(res => res.json())
         .then(users => this.setState({ users }));
     }
-    console.log(this.props.routeParams);
   }
 
   render() {
