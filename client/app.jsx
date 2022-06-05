@@ -3,6 +3,7 @@ import Header from './pages/home';
 import PageContainer from './components/page-container';
 import SearchBar from './components/search-bar';
 import UserList from './components/user-list';
+import UserProfile from './components/user-profile';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -30,11 +31,16 @@ export default class App extends React.Component {
         </>
       );
     } else if (route.path === 'filter') {
-      const rankId = route.params.get('rankId');
       return (
         <>
           <SearchBar />
           <UserList routeParams={route.params} />;
+        </>
+      );
+    } else if (route.path === 'users') {
+      return (
+        <>
+          <UserProfile />
         </>
       );
     }
