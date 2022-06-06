@@ -93,21 +93,35 @@ app.get('/api/champions', (req, res, next) => {
 // get user card data by searching by rank
 app.get('/api/filter', (req, res, next) => {
   const rankId = req.query.rankId;
-  // const roleId = req.query.roleId;
-  // const championId = req.query.championId;
+  const roleId = req.query.roleId;
+  const championId = req.query.championId;
 
   if (!rankId) {
     throw new ClientError(400, 'rankId must be an actual rank.');
   }
 
   const sql = `
+    with "matchingUsers" as (
+      select "u"."userId",
+            "u"."name",
+            "u"."imageUrl",
+            "u"."rankId"
+        from "users" as "u"
+        join "userRoles" as "ur"
+        on "u"."userId" = "ur"."userId"
+          and "ur"."roleId" = $2
+        join "userChampions" as "uc"
+        on "u"."userId" = "uc"."userId"
+          and "uc"."championId" = $3
+        where "u"."rankId" = $1
+    )
     select "u"."userId",
             "u"."name",
             "u"."imageUrl",
             "c"."champions",
             "rl"."roles",
             "rk".*
-      from "users" as "u"
+      from "matchingUsers" as "u"
     join "ranks" as "rk" using ("rankId")
     left join lateral (
       select json_agg("c") as "champions"
@@ -127,15 +141,11 @@ app.get('/api/filter', (req, res, next) => {
         where "url"."userId" = "u"."userId"
       ) as "rl"
     ) as "rl" on true
-    where "rankId" = $1
     `;
 
-  const query = [rankId];
+  const query = [rankId, roleId, championId];
   db.query(sql, query)
     .then(result => {
-      if (!result.rows[0]) {
-        throw new ClientError(404, `cannot find user with rankId ${rankId}`);
-      }
       res.json(result.rows);
     })
     .catch(err => next(err));

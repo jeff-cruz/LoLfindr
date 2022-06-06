@@ -58,3 +58,8 @@ export default class App extends React.Component {
     );
   }
 }
+
+// sign up route path === ''
+// sign in route path === 'login'
+// edit profile route path === 'editprofile'
+// user list route path === 'userlist'
