@@ -1,9 +1,10 @@
 import React from 'react';
-import Header from './pages/home';
+import Header from './components/header';
 import PageContainer from './components/page-container';
 import SearchBar from './components/search-bar';
 import UserList from './components/user-list';
 import UserProfile from './components/user-profile';
+import Home from './pages/home';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -24,6 +25,10 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
+      return (
+        <Home />
+      );
+    } else if (route.path === 'userlist') {
       return (
         <>
           <Header />

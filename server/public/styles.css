@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: Poppins, sans-serif;
   color: white;
-  background: linear-gradient(0.375turn, #4724a7, #a585ff);
+  background: linear-gradient(0.375turn, #3f1f97, #5c39bc, #8364d9, #a689f8);
 }
 
 .logo {
@@ -49,6 +49,109 @@ body {
 
 .navbar {
   justify-content: center;
+}
+
+.main-logo {
+  width: 8rem;
+  height: 8rem;
+}
+
+.main-title {
+  font-weight: 600;
+}
+
+.sign-up-container {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+}
+
+.login-button-viewswap {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20rem;
+  justify-content: center;
+}
+
+.sign-up-viewswap,
+.sign-in-viewswap {
+  border: 0;
+  width: 10rem;
+  height: 2.5rem;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.sign-up-viewswap:hover,
+.sign-in-viewswap:hover {
+  color: white;
+}
+
+.active-highlight {
+  background-color: #ab2dfe;
+  box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.inactive-highlight {
+  background-color: #6952aa;
+  box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-form {
+  color: white;
+}
+
+.login-icons {
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  padding-top: 2.5rem;
+  margin-right: 0.5rem;
+}
+
+.user-input {
+  margin-top: 1.25rem;
+  margin-bottom: 1rem;
+  background-color: #816bbe;
+  border: 0;
+  padding: 0.5rem 1rem;
+  width: 15rem;
+  height: 2.75rem;
+  color: white;
+}
+
+.user-input::placeholder {
+  color: #c9c9c9;
+}
+
+.user-input:focus {
+  outline: none;
+}
+
+.login-button {
+  background-color: #ab2dfe;
+  color: white;
+  height: 3rem;
+  width: 12rem;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  margin-top: 2rem;
+  border: 0;
+  font-weight: 600;
+  box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-button:active {
+  transform: translateY(2px);
 }
 
 .card {
