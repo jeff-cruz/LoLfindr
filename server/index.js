@@ -194,6 +194,7 @@ app.get('/api/users/:userId', (req, res, next) => {
     select "u"."userId",
             "u"."name",
             "u"."imageUrl",
+            "u"."bio",
             "c"."champions",
             "rl"."roles",
             "rk".*

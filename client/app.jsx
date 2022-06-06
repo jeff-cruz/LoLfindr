@@ -38,9 +38,10 @@ export default class App extends React.Component {
         </>
       );
     } else if (route.path === 'users') {
+      const userId = route.params.get('userId');
       return (
         <>
-          <UserProfile />
+          <UserProfile userId={userId} />;
         </>
       );
     }

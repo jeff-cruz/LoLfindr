@@ -20,13 +20,17 @@ body {
   font-family: Poppins, sans-serif;
 }
 
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
 .glass-container {
   margin-top: 5rem;
   width: 70rem;
   height: 20rem;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border: 0.5px solid white;
   overflow-x: auto;
@@ -36,6 +40,7 @@ body {
 
 .search-bar {
   background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   height: 12rem;
   border-radius: 25px;
   position: sticky;
@@ -48,6 +53,7 @@ body {
 
 .card {
   width: 100%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .card-img-top {
@@ -165,13 +171,113 @@ span {
   flex-direction: column;
 }
 
-.user-details-container {
-  background-color: white;
-  width: 80%;
-  height: auto;
+.user-profile {
+  margin-top: 1rem;
+  flex-direction: column;
+  overflow: scroll;
 }
 
-/* single column */
+.user-details-container {
+  width: 20rem;
+  height: auto;
+  margin: 0.75rem auto;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.user-profile-picture {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.user-profile-name {
+  color: white;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.user-profile-bio {
+  color: white;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.user-rank-container {
+  width: 20rem;
+  height: auto;
+  margin: 0.75rem auto;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.profile-headings {
+  margin-top: 1rem;
+  color: white;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.profile-rank-icon {
+  width: 12rem;
+  height: 12rem;
+}
+
+.profile-rank {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.user-role-container {
+  width: 20rem;
+  height: auto;
+  margin: 0.75rem auto;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.profile-role-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.profile-role-icon-container {
+  width: 50%;
+}
+
+.profile-role {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.user-champion-container {
+  width: 20rem;
+  height: auto;
+  margin: 0.75rem auto;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.profile-champion {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.profile-champion-section {
+  margin-top: 1rem;
+}
+
+/* user list: single column */
 @media screen and (min-width: 391px) and (max-width: 768px) {
   .search-bar {
     height: 12rem;
@@ -188,14 +294,14 @@ span {
   }
 }
 
-/* double column and wider */
+/* user list: double column and wider */
 @media screen and (min-width: 769px) {
   /* .search-bar {
   height: 4rem;
 } */
 }
 
-/* triple column */
+/* user list: triple column */
 @media screen and (min-width: 992px) {
   .filter-container {
     margin-top: 0.25rem;
@@ -229,5 +335,69 @@ span {
     display: flex;
     flex-direction: row;
     height: 3rem;
+  }
+
+  .user-profile {
+    flex-direction: row;
+    margin-top: 0;
+    height: 100%;
+    position: fixed;
+  }
+
+  .user-profile-picture {
+    width: 14rem;
+    height: 14rem;
+  }
+
+  .user-details-container {
+    min-height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: -1rem;
+    margin-right: 1.5rem;
+    width: 20rem;
+  }
+
+  .user-profile-name {
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-headings {
+    font-size: 1.75rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .rank-role-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .user-rank-container,
+  .user-role-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: 50%;
+  }
+
+  .profile-role-section {
+    margin-top: 3rem;
+  }
+
+  .profile-role-icon {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .user-champion-container {
+    margin: 1rem;
+  }
+
+  .profile-champion-section {
+    margin: 2rem 4.5rem;
   }
 }
