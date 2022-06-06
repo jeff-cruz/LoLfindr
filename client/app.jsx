@@ -26,22 +26,31 @@ export default class App extends React.Component {
     if (route.path === '') {
       return (
         <>
+          <Header />
+          <PageContainer>
           <SearchBar />
           <UserList />
+          </PageContainer>
         </>
       );
     } else if (route.path === 'filter') {
       return (
         <>
+          <Header />
+          <PageContainer>
           <SearchBar />
           <UserList routeParams={route.params} />;
+          </PageContainer>
         </>
       );
     } else if (route.path === 'users') {
       const userId = route.params.get('userId');
       return (
         <>
+          <Header />
+          <PageContainer>
           <UserProfile userId={userId} />;
+          </PageContainer>
         </>
       );
     }
@@ -50,10 +59,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-        <Header />
-        <PageContainer>
           { this.renderPage() }
-        </PageContainer>
       </>
     );
   }
