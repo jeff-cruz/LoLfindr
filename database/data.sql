@@ -77,7 +77,7 @@ insert into "users" (
   '/images/hungrybox.jpeg',
   'HungryBox',
   'Professional Super Smash Bros. Player, I do not really know what I am doing here but you know, POG.',
-  'Bronze'
+  'Iron'
 );
 
 insert into "roles" (
@@ -644,7 +644,7 @@ insert into "userChampions" (
   "championId"
 ) values (
   5,
-  'Jinx'
+  'Sett'
 ), (
   5,
   'Sion'
@@ -703,7 +703,7 @@ insert into "userRoles" (
   "roleId"
 ) values (
   5,
-  'Bot'
+  'Top'
 ), (
   5,
   'Jungle'

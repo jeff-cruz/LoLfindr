@@ -143,12 +143,12 @@ span {
 
 .search-button {
   text-decoration: none;
-  background-color: #7761b6;
+  background-color: white;
   border-radius: 5px;
   padding: 0.25rem 0.5rem;
-  color: white;
+  color: black;
   font-family: Poppins, sans-serif;
-  border: none;
+  border: 1px solid black;
   text-align: center;
   width: 6rem;
 }
@@ -384,10 +384,6 @@ span {
     height: 50%;
   }
 
-  .profile-rank-icon-container {
-    margin-bottom: 0.5rem;
-  }
-
   .profile-role-section {
     margin-top: 3rem;
   }
@@ -403,12 +399,5 @@ span {
 
   .profile-champion-section {
     margin: 2rem 4.5rem;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .card-rank-icon {
-    margin-left: 7rem;
-    margin-right: 7rem;
   }
 }
