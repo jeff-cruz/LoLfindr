@@ -17,13 +17,13 @@ export default class SearchBar extends React.Component {
       ranks: [],
       roles: [],
       champions: [],
-      selectedRank: null,
-      selectedRole: null,
-      selectedChampion: null
+      selectedRank: null
+      // selectedRole: null,
+      // selectedChampion: null
     };
     this.handleChangeRank = this.handleChangeRank.bind(this);
-    this.handleChangeRole = this.handleChangeRole.bind(this);
-    this.handleChangeChampion = this.handleChangeChampion.bind(this);
+    // this.handleChangeRole = this.handleChangeRole.bind(this);
+    // this.handleChangeChampion = this.handleChangeChampion.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
