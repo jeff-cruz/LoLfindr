@@ -6,6 +6,7 @@ const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const app = express();
 const publicPath = path.join(__dirname, 'public');
+const argon2 = require('argon2');
 
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./dev-middleware')(publicPath));
@@ -141,48 +142,6 @@ app.get('/api/filter', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// // get user card data by searching by role
-// app.get('/api/role', (req, res, next) => {
-//   const roleId = req.query.roleId;
-
-//   const sql = `
-//     select "u"."userId",
-//             "u"."name",
-//             "u"."imageUrl",
-//             "c"."champions",
-//             "rl".*,
-//             "rk".*
-//       from "users" as "u"
-//     join "ranks" as "rk" using ("rankId")
-//     left join lateral (
-//       select json_agg("c") as "champions"
-//       from (
-//         select "c".*
-//         from "champions" as "c"
-//         join "userChampions" as "uc" using ("championId")
-//         where "uc"."userId" = "u"."userId"
-//       ) as "c"
-//     ) as "c" on true
-//     left join lateral (
-//       select json_agg("rl") as "roles"
-//       from (
-//         select "rl".*
-//         from "roles" as "rl"
-//         join "userRoles" as "url" using ("roleId")
-//         where "url"."userId" = "u"."userId"
-//       ) as "rl"
-//     ) as "rl" on true
-//     where roles"."roleId" = $1
-//     `;
-
-//   const query = [roleId];
-//   db.query(sql, query)
-//     .then(result => {
-//       res.json(result.rows);
-//     })
-//     .catch(err => next(err));
-// });
-
 app.get('/api/users/:userId', (req, res, next) => {
   const userId = Number(req.params.userId);
 
@@ -232,8 +191,36 @@ app.get('/api/users/:userId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.use(express.json());
+
+app.post('/api/auth/sign-up', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields');
+  }
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+        insert into "users" ("username", "hashedPassword", "createdAt")
+        values ($1, $2, now())
+        returning "userId", "username", "createdAt"
+      `;
+      const params = [username, hashedPassword];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
+
+// /api/auth/sign-up not receive request to insert username and password
+// handleSubmit not being reached in form
