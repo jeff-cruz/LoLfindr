@@ -234,4 +234,3 @@ app.listen(process.env.PORT, () => {
 
 // /api/auth/sign-up not receive request to insert username and password
 // handleSubmit not being reached in form
-// clicking sign up won't viewswap

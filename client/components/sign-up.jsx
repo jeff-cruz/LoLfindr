@@ -5,12 +5,8 @@ export default function SignUp(props) {
   return (
     <>
       <div className='login-button-viewswap d-flex poppins-font'>
-        <a
-          href='#auth?action=sign-up'
-          className='sign-up-viewswap active-highlight'>
-          Sign Up
-          </a>
-        <a href='#auth?action=sign-in' className='sign-in-viewswap inactive-highlight'>Log In</a>
+        <a href='#auth?action=sign-up'className='sign-up-viewswap inactive-highlight'>Sign Up</a>
+        <a href='#auth?action=sign-in' className='sign-in-viewswap active-highlight'>Log In</a>
       </div>
       <form className='login-form' onSubmit={handleSubmit}>
         <div className='logo-container'>
@@ -39,7 +35,7 @@ export default function SignUp(props) {
             onChange={handleChange}
             placeholder="Set A Password" />
         </div>
-        <button className="login-button">Create Account</button>
+        <button onSubmit={handleSubmit} className="login-button">Create Account</button>
       </form>
     </>
   );

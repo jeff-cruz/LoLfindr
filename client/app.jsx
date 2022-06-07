@@ -38,7 +38,7 @@ export default class App extends React.Component {
       return (
         <Auth action={ action }/>
       );
-    } else if (route.path === 'home') {
+    } else if (route.path === '') {
       return (
         <>
           <Home/>

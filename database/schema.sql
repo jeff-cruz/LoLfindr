@@ -11,10 +11,10 @@ CREATE TABLE "public"."users" (
 	"username" TEXT NOT NULL,
 	"hashedPassword" TEXT NOT NULL,
 	"createdAt" timestamp with time zone NOT NULL,
-	"imageUrl" TEXT NOT NULL,
-	"name" TEXT NOT NULL,
-	"bio" TEXT NOT NULL,
-	"rankId" TEXT NOT NULL,
+	"imageUrl" TEXT NULL,
+	"name" TEXT NULL,
+	"bio" TEXT NULL,
+	"rankId" TEXT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
