@@ -98,7 +98,8 @@ export default class AuthForm extends React.Component {
                 required
                 type="text"
                 className="user-input"
-                id="input-username"
+                id="username"
+                name="username"
                 onChange={this.handleChange}
                 placeholder="Enter Username" />
             </div>
@@ -109,7 +110,8 @@ export default class AuthForm extends React.Component {
                 required
                 type="password"
                 className="user-input"
-                id="input-password"
+                id="password"
+                name="password"
                 onChange={this.handleChange}
                 placeholder="Enter Password" />
             </div>
