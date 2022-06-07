@@ -80,8 +80,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-// look at params variable in parse-route.js
-// mdn search params
-// how to set params to be read by parse-route
-// attach params value to action props in app.jsx
