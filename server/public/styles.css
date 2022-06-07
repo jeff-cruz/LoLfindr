@@ -73,9 +73,9 @@ body {
 
 .login-button-viewswap {
   position: fixed;
-  top: 15%;
+  top: 0%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -150%);
   width: 20rem;
   justify-content: center;
 }

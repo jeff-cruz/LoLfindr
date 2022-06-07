@@ -1,40 +1,25 @@
 import React from 'react';
+import Redirect from '../components/redirect';
+import AppContext from '../lib/app-context';
+import Header from '../components/header';
+import PageContainer from '../components/page-container';
+import SearchBar from '../components/search-bar';
+import UserList from '../components/user-list';
 
 export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-  }
-
   render() {
+
+    if (!this.context.user) return <Redirect to="sign-in" />;
+
     return (
-      <>
-        <div className='login-button-viewswap d-flex poppins-font'>
-          <a className='sign-up-viewswap active-highlight'>Sign Up</a>
-          <a className='sign-in-viewswap inactive-highlight'>Log In</a>
-        </div>
-        <div className='sign-up-container d-flex text-center poppins-font'>
-          <form className='login-form'>
-            <div className='logo-container'>
-              <img className='main-logo' src='../images/icon.png'></img>
-              <h1 className='main-title'>Sign Up</h1>
-            </div>
-            <div className="d-flex">
-              <label htmlFor="input-username"></label>
-              <i className="fa-solid fa-user fa-2xl login-icons"></i>
-                <input type="text" className="user-input" id="input-username" aria-describedby="emailHelp" placeholder="Choose Username" />
-            </div>
-            <div className="d-flex">
-              <label htmlFor="input-password"></label>
-              <i className="fa-solid fa-key fa-2xl login-icons"></i>
-                <input type="password" className="user-input" id="input-password" placeholder="Set A Password" />
-            </div>
-            <button type="submit" className="login-button">Create Account</button>
-          </form>
-        </div>
-      </>
+      <div>
+        <Header />
+        <PageContainer>
+          <SearchBar />
+          <UserList />
+        </PageContainer>
+      </div>
     );
   }
 }
+Home.contextType = AppContext;
