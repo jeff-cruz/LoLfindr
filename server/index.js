@@ -99,10 +99,6 @@ app.get('/api/filter', (req, res, next) => {
   const roleId = req.query.roleId;
   const championId = req.query.championId;
 
-  if (!rankId) {
-    throw new ClientError(400, 'rankId must be an actual rank.');
-  }
-
   const sql = `
     with "matchingUsers" as (
       select "u"."userId",
@@ -284,6 +280,7 @@ app.post('/api/auth/update', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

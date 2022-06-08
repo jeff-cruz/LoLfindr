@@ -1,13 +1,13 @@
 import React from 'react';
-import Select from 'react-select';
+// import Select from 'react-select';
 
-const customStyles = {
-  valueContainer: (provided, state) => {
-    return {
-      ...provided, display: 'flex'
-    };
-  }
-};
+// const customStyles = {
+//   valueContainer: (provided, state) => {
+//     return {
+//       ...provided, display: 'flex'
+//     };
+//   }
+// };
 
 export default class UpdateProfile extends React.Component {
   constructor(props) {
@@ -104,7 +104,7 @@ export default class UpdateProfile extends React.Component {
             </div>
           </div>
 
-          <div className='update-details-container update-glass-card d-flex'>
+          {/* <div className='update-details-container update-glass-card d-flex'>
             <h1 className='details-heading text-center'>Rank</h1>
             <p className='details-text'> Select One </p>
             <div className='details-container'>
@@ -195,7 +195,7 @@ export default class UpdateProfile extends React.Component {
               onChange={ this.handleChangeChampion }
             />
           </div>
-        </div>
+        </div> */}
         <div className='d-flex update-button-container'>
           <button className='text-center poppins-font update-button'>Update Profile</button>
         </div>
@@ -206,32 +206,32 @@ export default class UpdateProfile extends React.Component {
   }
 }
 
-function RankOptions(props) {
-  const { data, innerRef, innerProps } = props;
-  return (
-    <div value={data.rankId} ref={innerRef} {...innerProps}>
-      <img className='filter-icons' src={ data.rankUrl }></img>
-      <span> {data.rankId} </span>
-    </div>
-  );
-}
+// function RankOptions(props) {
+//   const { data, innerRef, innerProps } = props;
+//   return (
+//     <div value={data.rankId} ref={innerRef} {...innerProps}>
+//       <img className='filter-icons' src={ data.rankUrl }></img>
+//       <span> {data.rankId} </span>
+//     </div>
+//   );
+// }
 
-function RoleOptions(props) {
-  const { data, innerRef, innerProps } = props;
-  return (
-    <div value={data.roleId} ref={innerRef} {...innerProps}>
-      <img className='filter-icons' src={data.roleUrl}></img>
-      <span> {data.roleId} </span>
-    </div>
-  );
-}
+// function RoleOptions(props) {
+//   const { data, innerRef, innerProps } = props;
+//   return (
+//     <div value={data.roleId} ref={innerRef} {...innerProps}>
+//       <img className='filter-icons' src={data.roleUrl}></img>
+//       <span> {data.roleId} </span>
+//     </div>
+//   );
+// }
 
-function ChampionOptions(props) {
-  const { data, innerRef, innerProps } = props;
-  return (
-    <div value={data.championId} ref={innerRef} {...innerProps}>
-      <img className='filter-icons' src={data.championUrl}></img>
-      <span> {data.championId} </span>
-    </div>
-  );
-}
+// function ChampionOptions(props) {
+//   const { data, innerRef, innerProps } = props;
+//   return (
+//     <div value={data.championId} ref={innerRef} {...innerProps}>
+//       <img className='filter-icons' src={data.championUrl}></img>
+//       <span> {data.championId} </span>
+//     </div>
+//   );
+// }
