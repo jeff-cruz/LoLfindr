@@ -271,9 +271,10 @@ app.post('/api/auth/update', (req, res, next) => {
     throw new ClientError(400, 'name and bio are required fields');
   }
   const sql = `
-    insert into "flashcards" ("userId", "name", "bio")
-    values ($1, $2, $3)
+    insert into "users" ("name", "bio")
+    values ($2, $3)
     returning *
+    where "userId" = $1
   `;
   const params = [userId, name, bio];
   db.query(sql, params)

@@ -83,7 +83,7 @@ export default class UpdateProfile extends React.Component {
     return (
       <>
         <div className='container update-user-container poppins-font d-flex'>
-          <form onSubmit={this.handleSubmit} className='update-form'>
+          <form onSubmit={this.handleSubmit} className='update-form' autoComplete="off">
           <div className='update-form-heading'>
             <h1 className='text-center update-title'>Edit Profile</h1>
           </div>

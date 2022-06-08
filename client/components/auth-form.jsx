@@ -47,7 +47,7 @@ export default class AuthForm extends React.Component {
             <a href='#auth?action=sign-up' className='sign-up-viewswap active-highlight'>Sign Up</a>
             <a href='#auth?action=sign-in' className='sign-in-viewswap inactive-highlight'>Log In</a>
           </div>
-          <form className='login-form' onSubmit={this.handleSubmit}>
+          <form className='login-form' onSubmit={this.handleSubmit} autoComplete="off">
             <div className='logo-container'>
               <img className='main-logo' src='../images/icon.png'></img>
               <h1 className='main-title'>Sign Up</h1>
@@ -87,7 +87,7 @@ export default class AuthForm extends React.Component {
             <a href='#auth?action=sign-up' className='sign-up-viewswap inactive-highlight'>Sign Up</a>
             <a href='#auth?action=sign-in' className='sign-in-viewswap active-highlight'>Log In</a>
           </div>
-          <form className='login-form' onSubmit={this.handleSubmit}>
+          <form className='login-form' onSubmit={this.handleSubmit} autoComplete="off">
             <div className='logo-container'>
               <img className='main-logo' src='../images/icon.png'></img>
               <h1 className='main-title'>Sign In</h1>
