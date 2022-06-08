@@ -10,6 +10,7 @@ import NotFound from './pages/not-found';
 import Home from './pages/home';
 import SearchBar from './components/search-bar';
 import UserList from './components/user-list';
+import UpdateProfile from './components/update-profile';
 
 export default class App extends React.Component {
 
@@ -51,11 +52,13 @@ export default class App extends React.Component {
           <Home/>
         </>
       );
-    } else if (route.path === 'edit-profile') {
+    } else if (route.path === 'update-profile') {
       return (
         <>
           <Header />
-          <PageContainer />
+          <PageContainer>
+            <UpdateProfile />
+          </PageContainer>
         </>
       );
     } else if (route.path === 'users') {

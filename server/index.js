@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const publicPath = path.join(__dirname, 'public');
 const argon2 = require('argon2');
+const authorizationMiddleware = require('./authorization-middleware');
 
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./dev-middleware')(publicPath));
@@ -261,11 +262,29 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.use(authorizationMiddleware);
+
+app.post('/api/auth/update', (req, res, next) => {
+  const { userId } = req.user;
+  const { name, bio } = req.body;
+  if (!name || !bio) {
+    throw new ClientError(400, 'name and bio are required fields');
+  }
+  const sql = `
+    insert into "flashcards" ("userId", "name", "bio")
+    values ($1, $2, $3)
+    returning *
+  `;
+  const params = [userId, name, bio];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+});
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
-
-// /api/auth/sign-up not receive request to insert username and password
-// handleSubmit not being reached in form
