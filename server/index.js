@@ -9,6 +9,7 @@ const app = express();
 const publicPath = path.join(__dirname, 'public');
 const argon2 = require('argon2');
 const authorizationMiddleware = require('./authorization-middleware');
+const uploadsMiddleware = require('./uploads-middleware');
 
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./dev-middleware')(publicPath));
@@ -52,7 +53,21 @@ app.get('/api/users', (req, res, next) => {
 });
 
 // get ranks data
-app.get('/api/ranks', (req, res, next) => {
+app.get('/api/ranks-filter', (req, res, next) => {
+  const sql = `
+        select  "rankId",
+                "rankUrl"
+    from "ranks"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get ranks data
+app.get('/api/ranks-update', (req, res, next) => {
   const sql = `
         select  "rankId",
                 "rankUrl"
@@ -66,7 +81,21 @@ app.get('/api/ranks', (req, res, next) => {
 });
 
 // get roles data
-app.get('/api/roles', (req, res, next) => {
+app.get('/api/roles-filter', (req, res, next) => {
+  const sql = `
+        select  "roleId",
+                "roleUrl"
+    from "roles"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get roles data
+app.get('/api/roles-update', (req, res, next) => {
   const sql = `
         select  "roleId",
                 "roleUrl"
@@ -80,7 +109,21 @@ app.get('/api/roles', (req, res, next) => {
 });
 
 // get champions data
-app.get('/api/champions', (req, res, next) => {
+app.get('/api/champions-filter', (req, res, next) => {
+  const sql = `
+        select  "championId",
+                "championUrl"
+    from "champions"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get champions data
+app.get('/api/champions-update', (req, res, next) => {
   const sql = `
         select  "championId",
                 "championUrl"
@@ -260,19 +303,48 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.post('/api/auth/update', (req, res, next) => {
+app.put('/api/user', express.urlencoded(), uploadsMiddleware, (req, res, next) => {
   const { userId } = req.user;
-  const { name, bio } = req.body;
-  if (!name || !bio) {
-    throw new ClientError(400, 'name and bio are required fields');
+  const { name, bio, rankId, roles, champions } = req.body;
+  if (!name || !bio || !rankId) {
+    throw new ClientError(400, 'name, bio, rankId are required fields');
   }
+  const imageUrl = req.file
+    ? `/images/${req.file.filename}`
+    : null;
+
   const sql = `
-    insert into "users" ("name", "bio")
-    values ($2, $3)
-    returning *
+    with "deletedRoles" as (
+      delete from "userRoles"
+      where "userId" = $1
+    ), "deletedChampions" as (
+      delete from "userChampions"
+      where "userId" = $1
+    ), "newUserRoles" as (
+      insert into "userRoles"
+          select $1,
+                "ur"."roleId"
+          from (
+            select unnest($5::text[]) as "roleId"
+          ) as "ur"
+    ), "newUserChampions" as (
+      insert into "userChampions"
+          select $1,
+                "uc"."championId"
+            from (
+              select unnest($6::text[]) as "championId"
+            ) as "uc"
+    )
+
+    update "users"
+    set "name" = $2,
+        "bio" = $3,
+        "rankId" = $4,
+        "imageUrl" = coalesce($7, "imageUrl")
     where "userId" = $1
+    returning *
   `;
-  const params = [userId, name, bio];
+  const params = [userId, name, bio, rankId, roles, champions, imageUrl];
   db.query(sql, params)
     .then(result => {
       const [user] = result.rows;

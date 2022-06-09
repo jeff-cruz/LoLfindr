@@ -27,15 +27,15 @@ export default class SearchBar extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/ranks')
+    fetch('/api/ranks-filter')
       .then(res => res.json())
       .then(ranks => this.setState({ ranks }));
 
-    fetch('/api/roles')
+    fetch('/api/roles-filter')
       .then(res => res.json())
       .then(roles => this.setState({ roles }));
 
-    fetch('/api/champions')
+    fetch('/api/champions-filter')
       .then(res => res.json())
       .then(champions => this.setState({ champions }));
   }
@@ -77,7 +77,7 @@ export default class SearchBar extends React.Component {
                 className='filter-select'
                 placeholder='Select Rank'
                 options={ this.state.ranks }
-                components= {{ Option: RankOptions, SingleValue: RankOptions }}
+                components= {{ Option: RankFilter, SingleValue: RankFilter }}
                 value={ this.state.selectedRank }
                 onChange= { this.handleChangeRank }
               />
@@ -89,7 +89,7 @@ export default class SearchBar extends React.Component {
                 className='filter-select'
                 placeholder='Select Role'
                 options={ this.state.roles }
-                components={{ Option: RoleOptions, SingleValue: RoleOptions }}
+                components={{ Option: RoleFilter, SingleValue: RoleFilter }}
                 value={ this.state.selectedRole }
                 onChange={ this.handleChangeRole }
               />
@@ -101,7 +101,7 @@ export default class SearchBar extends React.Component {
               className='filter-select'
               placeholder='Select Champion'
               options={ this.state.champions }
-              components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+              components={{ Option: ChampionFilter, SingleValue: ChampionFilter }}
               value={ this.state.selectedChampion }
               onChange={ this.handleChangeChampion }
             />
@@ -116,7 +116,7 @@ export default class SearchBar extends React.Component {
   }
 }
 
-function RankOptions(props) {
+function RankFilter(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.rankId} ref={innerRef} {...innerProps}>
@@ -126,7 +126,7 @@ function RankOptions(props) {
   );
 }
 
-function RoleOptions(props) {
+function RoleFilter(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.roleId} ref={innerRef} {...innerProps}>
@@ -136,7 +136,7 @@ function RoleOptions(props) {
   );
 }
 
-function ChampionOptions(props) {
+function ChampionFilter(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.championId} ref={innerRef} {...innerProps}>
