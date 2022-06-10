@@ -236,6 +236,9 @@ insert into "champions" (
   'Irelia',
   '/images/champion-icons/Irelia.png'
 ), (
+  'Ivern',
+  '/images/champion-icons/Ivern.png'
+),(
   'Janna',
   '/images/champion-icons/Janna.png'
 ), (

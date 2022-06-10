@@ -11,6 +11,7 @@ import Home from './pages/home';
 import SearchBar from './components/search-bar';
 import UserList from './components/user-list';
 import UpdateProfile from './components/update-profile';
+import MyProfile from './components/my-profile';
 
 export default class App extends React.Component {
 
@@ -52,6 +53,16 @@ export default class App extends React.Component {
           <Home/>
         </>
       );
+    } else if (route.path === 'filter') {
+      return (
+        <>
+          <Header />
+          <PageContainer>
+            <SearchBar />
+            <UserList routeParams={route.params} />;
+          </PageContainer>
+        </>
+      );
     } else if (route.path === 'update-profile') {
       return (
         <>
@@ -71,15 +82,14 @@ export default class App extends React.Component {
           </PageContainer>
         </>
       );
-    } else if (route.path === 'filter') {
+    } else if (route.path === 'profile') {
       return (
-        <>
-          <Header />
-          <PageContainer>
-            <SearchBar />
-            <UserList routeParams={route.params} />;
-          </PageContainer>
-        </>
+       <>
+        <Header />
+        <PageContainer>
+          <MyProfile />
+        </PageContainer>
+      </>
       );
     } else {
       return <NotFound />;
