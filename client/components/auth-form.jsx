@@ -32,7 +32,7 @@ export default class AuthForm extends React.Component {
         if (action === 'sign-up') {
           window.location.hash = '#auth?action=sign-in';
         } else if (result.user && result.token) {
-          window.location.hash = 'update-profile';
+          window.location.hash = '';
           this.props.onSignIn(result);
         }
       });

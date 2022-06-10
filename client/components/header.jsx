@@ -49,6 +49,8 @@ export default class Header extends React.Component {
       ? 'hidden'
       : 'grey';
 
+    const { handleSignOut } = this.context;
+
     return (
       <header className='navbar navbar-expand-lg fixed-top d-flex justify-content-between'>
           <div>
@@ -63,7 +65,8 @@ export default class Header extends React.Component {
             <img className='drawer-logo' src='images/icon.png'/>
             <a className='drawer-links poppins-font' onClick={this.handleClick} href=''>Home</a>
             <a className='drawer-links poppins-font' onClick={this.handleClick} href='#profile'>My Profile</a>
-            <a className='drawer-links poppins-font' >Log Out</a>
+            <a className='drawer-links poppins-font' onClick={this.handleClick} href='#update-profile'>Edit Profile</a>
+            <a className='drawer-links poppins-font' onClick={ handleSignOut } >Log Out</a>
           </div>
           <div onClick={this.handleClick} className={overlayClass}></div>
       </header>

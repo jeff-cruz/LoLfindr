@@ -121,11 +121,13 @@ export default class UpdateProfile extends React.Component {
           <div className='update-details-container'>
             <div className='text-center'>
               <img className='user-profile-picture' src='../images/placeholder.png'></img>
+              <div className='upload-container'>
                   <input
                     type="file"
                     name="image"
                     ref={this.fileInputRef}
                     accept=".png, .jpg, .jpeg, .gif" />
+              </div>
             </div>
             <div className='user-profile-bio'>
               <div>
