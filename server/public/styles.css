@@ -69,7 +69,7 @@ body {
 }
 
 .drawer {
-  background: linear-gradient(0.375turn, #3f1f97, #5c39bc, #8364d9, #a689f8);
+  background: linear-gradient(0.375turn, #3f1f97, #a689f8);
   position: absolute;
   z-index: 102;
   top: 0;
@@ -87,7 +87,7 @@ body {
 .drawer-logo {
   height: 10rem;
   width: 10rem;
-  margin: 0 auto;
+  margin: 2rem auto 0;
 }
 
 .drawer-links {
@@ -259,22 +259,22 @@ body {
 .card-rank-icon {
   width: 5rem;
   height: 5rem;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 4.5rem;
+  margin-right: 4.5rem;
 }
 
 .card-role-icon {
   width: 20%;
   height: 20%;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
 .card-champion-icon {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 5.25rem;
+  height: 5.25rem;
 }
 
 .filter-form {
@@ -473,6 +473,11 @@ span {
   font-weight: 600;
 }
 
+.upload-image {
+  color: white;
+  padding: 1rem 3rem;
+}
+
 .update-details-container {
   width: 20rem;
   height: auto;
@@ -563,9 +568,15 @@ input:focus {
 
 /* user list: double column and wider */
 @media screen and (min-width: 769px) {
-  /* .search-bar {
-  height: 4rem;
-} */
+  .card-rank-icon {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
+  }
+
+  .card-role-icon {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
 }
 
 /* user list: triple column */
@@ -576,8 +587,8 @@ input:focus {
   }
 
   .card-role-icon {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 1.125rem;
+    margin-right: 1.125rem;
   }
 
   .card-rank-icon {
@@ -708,5 +719,24 @@ input:focus {
   .update-button-container {
     min-width: 100%;
     margin: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card-rank-icon {
+    width: 6rem;
+    height: 6rem;
+    margin-left: 4.25rem;
+    margin-right: 4.25rem;
+  }
+
+  .card-role-icon {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
+  .card-champion-icon {
+    width: 4.5rem;
+    height: 4.5rem;
   }
 }
