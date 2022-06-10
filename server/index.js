@@ -52,7 +52,7 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get ranks data
+// get ranks data on search bar
 app.get('/api/ranks-filter', (req, res, next) => {
   const sql = `
         select  "rankId",
@@ -66,7 +66,7 @@ app.get('/api/ranks-filter', (req, res, next) => {
 
 });
 
-// get ranks data
+// get ranks on update profile
 app.get('/api/ranks-update', (req, res, next) => {
   const sql = `
         select  "rankId",
@@ -80,7 +80,7 @@ app.get('/api/ranks-update', (req, res, next) => {
 
 });
 
-// get roles data
+// get roles on search bar
 app.get('/api/roles-filter', (req, res, next) => {
   const sql = `
         select  "roleId",
@@ -94,7 +94,7 @@ app.get('/api/roles-filter', (req, res, next) => {
 
 });
 
-// get roles data
+// get roles data on update profile
 app.get('/api/roles-update', (req, res, next) => {
   const sql = `
         select  "roleId",
@@ -108,7 +108,7 @@ app.get('/api/roles-update', (req, res, next) => {
 
 });
 
-// get champions data
+// get champions on search bar
 app.get('/api/champions-filter', (req, res, next) => {
   const sql = `
         select  "championId",
@@ -122,7 +122,7 @@ app.get('/api/champions-filter', (req, res, next) => {
 
 });
 
-// get champions data
+// get champions on update profile
 app.get('/api/champions-update', (req, res, next) => {
   const sql = `
         select  "championId",
@@ -303,11 +303,11 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.put('/api/user', express.urlencoded(), uploadsMiddleware, (req, res, next) => {
+app.put('/api/user', uploadsMiddleware, express.urlencoded({ extended: true }), (req, res, next) => {
   const { userId } = req.user;
   const { name, bio, rankId, roles, champions } = req.body;
-  if (!name || !bio || !rankId) {
-    throw new ClientError(400, 'name, bio, rankId are required fields');
+  if (!name || !bio || !rankId || !roles || !champions) {
+    throw new ClientError(400, 'name, bio, rankId, roles, champions are required fields');
   }
   const imageUrl = req.file
     ? `/images/${req.file.filename}`

@@ -405,7 +405,6 @@ span {
   margin: 0.75rem auto;
   padding: 3rem auto;
   border-radius: 30px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   flex-direction: column;
   align-content: center;
 }

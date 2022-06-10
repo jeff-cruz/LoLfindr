@@ -13,8 +13,8 @@ export default class UpdateProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedName: '',
-      selectedBio: '',
+      name: '',
+      bio: '',
       selectedRank: '',
       selectedRoleOne: '',
       selectedRoleTwo: '',
@@ -22,6 +22,7 @@ export default class UpdateProfile extends React.Component {
       selectedChampionTwo: '',
       selectedChampionThree: ''
     };
+    this.fileInputRef = React.createRef();
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeBio = this.handleChangeBio.bind(this);
     this.handleChangeRank = this.handleChangeRank.bind(this);
@@ -47,13 +48,14 @@ export default class UpdateProfile extends React.Component {
       .then(champions => this.setState({ champions }));
   }
 
-  handleChangeName(name) {
-    this.setState({ selectedName: name });
-    console.log(name);
+  handleChangeName(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
-  handleChangeBio(bio) {
-    this.setState({ selectedBio: bio });
+  handleChangeBio(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   handleChangeRank(rank) {
@@ -83,18 +85,28 @@ export default class UpdateProfile extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const token = localStorage.getItem('react-context-jwt');
+    const formData = new FormData();
+    formData.append('image', this.fileInputRef.current.files[0]);
+    formData.append('name', this.state.name);
+    formData.append('bio', this.state.bio);
+    formData.append('rankId', this.state.selectedRank.rankId);
+    formData.append('roles', this.state.selectedRoleOne.roleId);
+    formData.append('roles', this.state.selectedRoleTwo.roleId);
+    formData.append('champions', this.state.selectedChampionOne.championId);
+    formData.append('champions', this.state.selectedChampionTwo.championId);
+    formData.append('champions', this.state.selectedChampionThree.championId);
     const req = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         'X-Access-Token': token
       },
-      body: JSON.stringify(this.state)
+      body: formData
     };
     fetch('/api/user', req)
       .then(res => res.json())
       .then(result => {
         window.location.hash = '';
+        this.fileInputRef.current.value = null;
       });
   }
 
@@ -106,24 +118,28 @@ export default class UpdateProfile extends React.Component {
           <div className='update-form-heading'>
             <h1 className='text-center update-title'>Edit Profile</h1>
           </div>
-          <div className='update-details-container update-glass-card'>
+          <div className='update-details-container'>
             <div className='text-center'>
-              <img className='user-profile-picture'></img>
-
+              <img className='user-profile-picture' src='../images/placeholder.png'></img>
+                  <input
+                    type="file"
+                    name="image"
+                    ref={this.fileInputRef}
+                    accept=".png, .jpg, .jpeg, .gif" />
             </div>
             <div className='user-profile-bio'>
               <div>
                 <label htmlFor='name' className='update-name'>Name:</label>
-                <input className='update-name' value={this.state.selectedName} type='text' id='name' name='name' onChange={this.handleChangeName}/>
+                <input className='update-name' value={this.state.name} type='text' id='name' name='name' onChange={this.handleChangeName}/>
               </div>
               <div>
                 <label htmlFor='bio'>Bio:</label>
-                  <textarea value={this.state.selectedBio} id='bio' name='bio' onChange= {this.handleChangeBio}></textarea>
+                  <textarea value={this.state.bio} id='bio' name='bio' onChange= {this.handleChangeBio}></textarea>
               </div>
             </div>
           </div>
 
-          <div className='update-details-container update-glass-card d-flex'>
+          <div className='update-details-container d-flex'>
             <h1 className='details-heading text-center'>Rank</h1>
             <p className='details-text'> Select One </p>
             <div className='details-container'>
@@ -135,6 +151,7 @@ export default class UpdateProfile extends React.Component {
                 id='rankId'
                 name='rankId'
                 options={ this.state.ranks }
+                getOptionValue= {rank => rank.rankId }
                 components= {{ Option: RankOptions, SingleValue: RankOptions }}
                 value={ this.state.selectedRank }
                 onChange= { this.handleChangeRank }
@@ -148,9 +165,10 @@ export default class UpdateProfile extends React.Component {
                 isSearchable={ false }
                 className='details-select'
                 placeholder='Select Role'
-                id='roleId'
-                name='roleId'
+                id='roles'
+                name='roles'
                 options={ this.state.roles }
+                getOptionValue={role => role.roleId}
                 components={{ Option: RoleOptions, SingleValue: RoleOptions }}
                 value={ this.state.selectedRoleOne }
                 onChange={ this.handleChangeRoleOne }
@@ -162,9 +180,10 @@ export default class UpdateProfile extends React.Component {
                 isSearchable={ false }
                 className='details-select'
                 placeholder='Select Role'
-                id='roleId'
-                name='roleId'
+                id='roles'
+                name='roles'
                 options={ this.state.roles }
+                getOptionValue={role => role.roleId}
                 components={{ Option: RoleOptions, SingleValue: RoleOptions }}
                 value={ this.state.selectedRoleTwo }
                 onChange={ this.handleChangeRoleTwo }
@@ -178,9 +197,10 @@ export default class UpdateProfile extends React.Component {
               isSearchable={ false }
               className='details-select'
               placeholder='Select Champion'
-              id='championId'
-              name='championId'
+              id='champions'
+              name='champions'
               options={ this.state.champions }
+              getOptionValue={champion => champion.championId}
               components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
               value={ this.state.selectedChampionOne }
               onChange={ this.handleChangeChampionOne }
@@ -192,9 +212,10 @@ export default class UpdateProfile extends React.Component {
               isSearchable={ false }
               className='details-select'
               placeholder='Select Champion'
-              id='championId'
-              name='championId'
+              id='champions'
+              name='champions'
               options={ this.state.champions }
+              getOptionValue={champion => champion.championId}
               components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
               value={ this.state.selectedChampionTwo }
               onChange={ this.handleChangeChampionTwo }
@@ -206,9 +227,10 @@ export default class UpdateProfile extends React.Component {
               isSearchable={ false }
               className='details-select'
               placeholder='Select Champion'
-              id='championId'
-              name='championId'
+              id='champions'
+              name='champions'
               options={ this.state.champions }
+              getOptionValue={champion => champion.championId}
               components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
               value={ this.state.selectedChampionThree }
               onChange={this.handleChangeChampionThree}
@@ -254,12 +276,3 @@ function ChampionOptions(props) {
     </div>
   );
 }
-
-// yesterday i was able to get a part of the backend done of the user can update profile feature
-// i was able to send a post request to update the name, bio, rankId of the logged in user
-// and i was able to get the majority of the front end finished for name, bio and rankId
-// i got hardstuck at updating the rankId in state
-// three errors:
-// 1. the selected rank is an object and im trying to just select the rankId of the object from the single value property in the component attribute of react-select
-// 2. the first change in state of a selected rank displays an error ' a component is changing a controlled input to be uncontrolled'
-// 3. on the second change, i click submit to try to update the name, bio and rankId, but gets error 'converting circular structure to json', starting at object htmlinputelement
