@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const publicPath = path.join(__dirname, 'public');
 const argon2 = require('argon2');
+const authorizationMiddleware = require('./authorization-middleware');
+const uploadsMiddleware = require('./uploads-middleware');
 
 if (process.env.NODE_ENV === 'development') {
   app.use(require('./dev-middleware')(publicPath));
@@ -50,8 +52,8 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get ranks data
-app.get('/api/ranks', (req, res, next) => {
+// get ranks data on search bar
+app.get('/api/ranks-filter', (req, res, next) => {
   const sql = `
         select  "rankId",
                 "rankUrl"
@@ -64,8 +66,22 @@ app.get('/api/ranks', (req, res, next) => {
 
 });
 
-// get roles data
-app.get('/api/roles', (req, res, next) => {
+// get ranks on update profile
+app.get('/api/ranks-update', (req, res, next) => {
+  const sql = `
+        select  "rankId",
+                "rankUrl"
+    from "ranks"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get roles on search bar
+app.get('/api/roles-filter', (req, res, next) => {
   const sql = `
         select  "roleId",
                 "roleUrl"
@@ -78,8 +94,36 @@ app.get('/api/roles', (req, res, next) => {
 
 });
 
-// get champions data
-app.get('/api/champions', (req, res, next) => {
+// get roles data on update profile
+app.get('/api/roles-update', (req, res, next) => {
+  const sql = `
+        select  "roleId",
+                "roleUrl"
+    from "roles"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get champions on search bar
+app.get('/api/champions-filter', (req, res, next) => {
+  const sql = `
+        select  "championId",
+                "championUrl"
+    from "champions"
+  `;
+
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+
+});
+
+// get champions on update profile
+app.get('/api/champions-update', (req, res, next) => {
   const sql = `
         select  "championId",
                 "championUrl"
@@ -95,21 +139,31 @@ app.get('/api/champions', (req, res, next) => {
 // get user card data by searching by rank
 app.get('/api/filter', (req, res, next) => {
   const rankId = req.query.rankId;
-  // const roleId = req.query.roleId;
-  // const championId = req.query.championId;
-
-  if (!rankId) {
-    throw new ClientError(400, 'rankId must be an actual rank.');
-  }
+  const roleId = req.query.roleId;
+  const championId = req.query.championId;
 
   const sql = `
+    with "matchingUsers" as (
+      select "u"."userId",
+            "u"."name",
+            "u"."imageUrl",
+            "u"."rankId"
+        from "users" as "u"
+        join "userRoles" as "ur"
+        on "u"."userId" = "ur"."userId"
+          and "ur"."roleId" = $2
+        join "userChampions" as "uc"
+        on "u"."userId" = "uc"."userId"
+          and "uc"."championId" = $3
+        where "u"."rankId" = $1
+    )
     select "u"."userId",
             "u"."name",
             "u"."imageUrl",
             "c"."champions",
             "rl"."roles",
             "rk".*
-      from "users" as "u"
+      from "matchingUsers" as "u"
     join "ranks" as "rk" using ("rankId")
     left join lateral (
       select json_agg("c") as "champions"
@@ -129,15 +183,11 @@ app.get('/api/filter', (req, res, next) => {
         where "url"."userId" = "u"."userId"
       ) as "rl"
     ) as "rl" on true
-    where "rankId" = $1
     `;
 
-  const query = [rankId];
+  const query = [rankId, roleId, championId];
   db.query(sql, query)
     .then(result => {
-      if (!result.rows[0]) {
-        throw new ClientError(404, `cannot find user with rankId ${rankId}`);
-      }
       res.json(result.rows);
     })
     .catch(err => next(err));
@@ -251,11 +301,60 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.use(authorizationMiddleware);
+
+app.put('/api/user', uploadsMiddleware, express.urlencoded({ extended: true }), (req, res, next) => {
+  const { userId } = req.user;
+  const { name, bio, rankId, roles, champions } = req.body;
+  if (!name || !bio || !rankId || !roles || !champions) {
+    throw new ClientError(400, 'name, bio, rankId, roles, champions are required fields');
+  }
+  const imageUrl = req.file
+    ? `/images/${req.file.filename}`
+    : null;
+
+  const sql = `
+    with "deletedRoles" as (
+      delete from "userRoles"
+      where "userId" = $1
+    ), "deletedChampions" as (
+      delete from "userChampions"
+      where "userId" = $1
+    ), "newUserRoles" as (
+      insert into "userRoles"
+          select $1,
+                "ur"."roleId"
+          from (
+            select unnest($5::text[]) as "roleId"
+          ) as "ur"
+    ), "newUserChampions" as (
+      insert into "userChampions"
+          select $1,
+                "uc"."championId"
+            from (
+              select unnest($6::text[]) as "championId"
+            ) as "uc"
+    )
+
+    update "users"
+    set "name" = $2,
+        "bio" = $3,
+        "rankId" = $4,
+        "imageUrl" = coalesce($7, "imageUrl")
+    where "userId" = $1
+    returning *
+  `;
+  const params = [userId, name, bio, rankId, roles, champions, imageUrl];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
-
-// /api/auth/sign-up not receive request to insert username and password
-// handleSubmit not being reached in form

@@ -32,6 +32,7 @@ export default class AuthForm extends React.Component {
         if (action === 'sign-up') {
           window.location.hash = '#auth?action=sign-in';
         } else if (result.user && result.token) {
+          window.location.hash = 'update-profile';
           this.props.onSignIn(result);
         }
       });
@@ -43,10 +44,10 @@ export default class AuthForm extends React.Component {
       return (
         <>
           <div className='login-button-viewswap d-flex poppins-font'>
-            <a href='#auth?action=sign-up' className='sign-up-viewswap inactive-highlight'>Sign Up</a>
-            <a href='#auth?action=sign-in' className='sign-in-viewswap active-highlight'>Log In</a>
+            <a href='#auth?action=sign-up' className='sign-up-viewswap active-highlight'>Sign Up</a>
+            <a href='#auth?action=sign-in' className='sign-in-viewswap inactive-highlight'>Log In</a>
           </div>
-          <form className='login-form' onSubmit={this.handleSubmit}>
+          <form className='login-form' onSubmit={this.handleSubmit} autoComplete="off">
             <div className='logo-container'>
               <img className='main-logo' src='../images/icon.png'></img>
               <h1 className='main-title'>Sign Up</h1>
@@ -83,10 +84,10 @@ export default class AuthForm extends React.Component {
       return (
         <>
           <div className='login-button-viewswap d-flex poppins-font'>
-            <a href='#auth?action=sign-up' className='sign-up-viewswap active-highlight'>Sign Up</a>
-            <a href='#auth?action=sign-in' className='sign-in-viewswap inactive-highlight'>Log In</a>
+            <a href='#auth?action=sign-up' className='sign-up-viewswap inactive-highlight'>Sign Up</a>
+            <a href='#auth?action=sign-in' className='sign-in-viewswap active-highlight'>Log In</a>
           </div>
-          <form className='login-form' onSubmit={this.handleSubmit}>
+          <form className='login-form' onSubmit={this.handleSubmit} autoComplete="off">
             <div className='logo-container'>
               <img className='main-logo' src='../images/icon.png'></img>
               <h1 className='main-title'>Sign In</h1>

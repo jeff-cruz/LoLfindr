@@ -8,6 +8,9 @@ import AppContext from './lib/app-context';
 import jwtDecode from 'jwt-decode';
 import NotFound from './pages/not-found';
 import Home from './pages/home';
+import SearchBar from './components/search-bar';
+import UserList from './components/user-list';
+import UpdateProfile from './components/update-profile';
 
 export default class App extends React.Component {
 
@@ -19,7 +22,6 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash)
     };
     this.handleSignIn = this.handleSignIn.bind(this);
-    // this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -37,11 +39,6 @@ export default class App extends React.Component {
     this.setState({ user });
   }
 
-  // handleSignOut() {
-  //   window.localStorage.removeItem('react-context-jwt');
-  //   this.setState({ user: null });
-  // }
-
   renderPage() {
     const { route } = this.state;
     if (route.path === 'auth') {
@@ -55,11 +52,13 @@ export default class App extends React.Component {
           <Home/>
         </>
       );
-    } else if (route.path === 'edit-profile') {
+    } else if (route.path === 'update-profile') {
       return (
         <>
           <Header />
-          <PageContainer />
+          <PageContainer>
+            <UpdateProfile />
+          </PageContainer>
         </>
       );
     } else if (route.path === 'users') {
@@ -69,6 +68,16 @@ export default class App extends React.Component {
           <Header />
           <PageContainer>
           <UserProfile userId={userId} />;
+          </PageContainer>
+        </>
+      );
+    } else if (route.path === 'filter') {
+      return (
+        <>
+          <Header />
+          <PageContainer>
+            <SearchBar />
+            <UserList routeParams={route.params} />;
           </PageContainer>
         </>
       );

@@ -1,6 +1,5 @@
 import React from 'react';
 import Select from 'react-select';
-// import Redirect from './redirect';
 
 const customStyles = {
   valueContainer: (provided, state) => {
@@ -17,26 +16,26 @@ export default class SearchBar extends React.Component {
       ranks: [],
       roles: [],
       champions: [],
-      selectedRank: null
-      // selectedRole: null,
-      // selectedChampion: null
+      selectedRank: null,
+      selectedRole: null,
+      selectedChampion: null
     };
     this.handleChangeRank = this.handleChangeRank.bind(this);
-    // this.handleChangeRole = this.handleChangeRole.bind(this);
-    // this.handleChangeChampion = this.handleChangeChampion.bind(this);
+    this.handleChangeRole = this.handleChangeRole.bind(this);
+    this.handleChangeChampion = this.handleChangeChampion.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    fetch('/api/ranks')
+    fetch('/api/ranks-filter')
       .then(res => res.json())
       .then(ranks => this.setState({ ranks }));
 
-    fetch('/api/roles')
+    fetch('/api/roles-filter')
       .then(res => res.json())
       .then(roles => this.setState({ roles }));
 
-    fetch('/api/champions')
+    fetch('/api/champions-filter')
       .then(res => res.json())
       .then(champions => this.setState({ champions }));
   }
@@ -56,11 +55,10 @@ export default class SearchBar extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const filter = new URLSearchParams();
-    // if (this.state.selectedRank !== null && this.state.selectedRole !== null && this.state.selectedChampion !== null) {
-    if (this.state.selectedRank !== null) {
+    if (this.state.selectedRank !== null && this.state.selectedRole !== null && this.state.selectedChampion !== null) {
       filter.set('rankId', this.state.selectedRank.rankId);
-      // filter.set('roleId', this.state.selectedRole.roleId);
-      // filter.set('championId', this.state.selectedChampion.championId);
+      filter.set('roleId', this.state.selectedRole.roleId);
+      filter.set('championId', this.state.selectedChampion.championId);
       window.location.hash = `#filter?${filter}`;
     } else {
       alert('Rank, role and champion fields are required.');
@@ -79,7 +77,7 @@ export default class SearchBar extends React.Component {
                 className='filter-select'
                 placeholder='Select Rank'
                 options={ this.state.ranks }
-                components= {{ Option: RankOptions, SingleValue: RankOptions }}
+                components= {{ Option: RankFilter, SingleValue: RankFilter }}
                 value={ this.state.selectedRank }
                 onChange= { this.handleChangeRank }
               />
@@ -91,7 +89,7 @@ export default class SearchBar extends React.Component {
                 className='filter-select'
                 placeholder='Select Role'
                 options={ this.state.roles }
-                components={{ Option: RoleOptions, SingleValue: RoleOptions }}
+                components={{ Option: RoleFilter, SingleValue: RoleFilter }}
                 value={ this.state.selectedRole }
                 onChange={ this.handleChangeRole }
               />
@@ -103,7 +101,7 @@ export default class SearchBar extends React.Component {
               className='filter-select'
               placeholder='Select Champion'
               options={ this.state.champions }
-              components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+              components={{ Option: ChampionFilter, SingleValue: ChampionFilter }}
               value={ this.state.selectedChampion }
               onChange={ this.handleChangeChampion }
             />
@@ -111,9 +109,6 @@ export default class SearchBar extends React.Component {
           <div className='button-container'>
             <button className='search-button'>Search</button>
           </div>
-          {/* <div className='reset-container'>
-            <button onClick={this.handleReset} className='search-button'>Reset</button>
-          </div> */}
         </div>
       </form>
     </div>
@@ -121,7 +116,7 @@ export default class SearchBar extends React.Component {
   }
 }
 
-function RankOptions(props) {
+function RankFilter(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.rankId} ref={innerRef} {...innerProps}>
@@ -131,7 +126,7 @@ function RankOptions(props) {
   );
 }
 
-function RoleOptions(props) {
+function RoleFilter(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.roleId} ref={innerRef} {...innerProps}>
@@ -141,7 +136,7 @@ function RoleOptions(props) {
   );
 }
 
-function ChampionOptions(props) {
+function ChampionFilter(props) {
   const { data, innerRef, innerProps } = props;
   return (
     <div value={data.championId} ref={innerRef} {...innerProps}>
@@ -150,7 +145,3 @@ function ChampionOptions(props) {
     </div>
   );
 }
-//
-// onChange of select update state with selected rank
-// onSubmit update the hash #searchresults?rank='rank'
-// get userlist to refetch using specific rank
