@@ -14,6 +14,16 @@ body {
 .logo {
   height: 4rem;
   width: auto;
+  border-radius: 50%;
+}
+
+.profile-icon {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .poppins-font {
@@ -49,6 +59,70 @@ body {
 
 .navbar {
   justify-content: center;
+}
+
+.full-container {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 100;
+}
+
+.drawer {
+  background: linear-gradient(0.375turn, #3f1f97, #5c39bc, #8364d9, #a689f8);
+  position: absolute;
+  z-index: 102;
+  top: 0;
+  left: 100%;
+  width: 350px;
+  min-height: 100vh;
+  box-shadow: 10px 5px 50px black;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.drawer-logo {
+  height: 10rem;
+  width: 10rem;
+  margin: 0 auto;
+}
+
+.drawer-links {
+  text-decoration: none;
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+  transition: 0.3s;
+}
+
+.close {
+  transform: translateX(0);
+  transition: 0.5s;
+}
+
+.open {
+  transform: translate(-350px);
+  transition: 0.5s;
+}
+
+.grey {
+  background-color: rgb(59 59 59 / 50%);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  transition: 0.3s;
 }
 
 .main-logo {

@@ -303,6 +303,50 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+app.get('/api/user-details', (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    select "u"."userId",
+            "u"."name",
+            "u"."imageUrl",
+            "u"."bio",
+            "c"."champions",
+            "rl"."roles",
+            "rk".*
+      from "users" as "u"
+    join "ranks" as "rk" using ("rankId")
+    left join lateral (
+      select json_agg("c") as "champions"
+      from (
+        select "c".*
+        from "champions" as "c"
+        join "userChampions" as "uc" using ("championId")
+        where "uc"."userId" = "u"."userId"
+      ) as "c"
+    ) as "c" on true
+    left join lateral (
+      select json_agg("rl") as "roles"
+      from (
+        select "rl".*
+        from "roles" as "rl"
+        join "userRoles" as "url" using ("roleId")
+        where "url"."userId" = "u"."userId"
+      ) as "rl"
+    ) as "rl" on true
+    where "userId" = $1
+  `;
+
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows[0]) {
+        throw new ClientError(404, `cannot find user with userId ${userId}`);
+      }
+      res.json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.put('/api/user', uploadsMiddleware, express.urlencoded({ extended: true }), (req, res, next) => {
   const { userId } = req.user;
   const { name, bio, rankId, roles, champions } = req.body;
