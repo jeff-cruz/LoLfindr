@@ -50,8 +50,7 @@ export default class Header extends React.Component {
       : 'grey';
 
     return (
-      <div className='full-container'>
-        <header className='navbar navbar-expand-lg fixed-top d-flex justify-content-between'>
+      <header className='navbar navbar-expand-lg fixed-top d-flex justify-content-between'>
           <div>
             <a href=''>
               <img className="logo" src="images/icon.png" alt="LoLFindr Icon" />
@@ -67,8 +66,7 @@ export default class Header extends React.Component {
             <a className='drawer-links poppins-font' >Log Out</a>
           </div>
           <div onClick={this.handleClick} className={overlayClass}></div>
-        </header>
-      </div>
+      </header>
     );
   }
 }

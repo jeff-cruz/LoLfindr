@@ -74,7 +74,7 @@ body {
   z-index: 102;
   top: 0;
   left: 100%;
-  width: 350px;
+  width: 20rem;
   min-height: 100vh;
   box-shadow: 10px 5px 50px black;
   display: flex;
@@ -110,7 +110,7 @@ body {
 }
 
 .open {
-  transform: translate(-350px);
+  transform: translate(-20rem);
   transition: 0.5s;
 }
 
