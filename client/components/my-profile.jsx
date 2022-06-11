@@ -16,7 +16,7 @@ export default class MyProfile extends React.Component {
         'X-Access-Token': token
       }
     };
-    fetch('/api/user-details', req)
+    fetch('/api/user-profile', req)
       .then(res => res.json())
       .then(user => this.setState({ user }));
   }

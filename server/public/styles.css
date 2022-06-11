@@ -30,6 +30,12 @@ body {
   font-family: Poppins, sans-serif;
 }
 
+.card-img {
+  object-fit: cover;
+  height: 20rem;
+  background-color: #9478e2;
+}
+
 .glass-card {
   background-color: rgba(255, 255, 255, 0.35);
 }
@@ -97,6 +103,10 @@ body {
   margin-bottom: 0.5rem;
   color: white;
   font-weight: 600;
+}
+
+.drawer-links:hover {
+  color: #2764f6;
 }
 
 .hidden {
@@ -336,7 +346,7 @@ span {
 }
 
 .search-button:hover {
-  color: #9478e3;
+  color: #2764f6;
 }
 
 .search-button:active {
@@ -460,6 +470,10 @@ span {
   padding-bottom: 1.25rem;
 }
 
+.update-form-heading {
+  margin-top: 1rem;
+}
+
 .update-title {
   color: white;
   font-weight: 600;
@@ -473,7 +487,7 @@ span {
 .update-details-container {
   width: 20rem;
   height: auto;
-  margin: 0.75rem auto;
+  margin: 0 auto;
   padding: 3rem auto;
   border-radius: 30px;
   flex-direction: column;
@@ -495,8 +509,10 @@ span {
 }
 
 .update-button-container {
+  display: flex;
   justify-content: center;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   width: 100%;
 }
 
@@ -507,7 +523,8 @@ span {
   width: 12rem;
   border-radius: 30px;
   padding: 0.5rem 1rem;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border: 0;
   font-weight: 600;
   box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.3);
@@ -538,7 +555,7 @@ input:focus {
 .details-heading {
   color: white;
   text-decoration: underline;
-  margin: 0;
+  margin: 1rem 0 0;
 }
 
 /* user list: single column */
@@ -568,6 +585,11 @@ input:focus {
   .card-role-icon {
     margin-left: 1.75rem;
     margin-right: 1.75rem;
+  }
+
+  .card-champion-icon {
+    width: 5rem;
+    height: 5rem;
   }
 }
 
@@ -710,7 +732,7 @@ input:focus {
 
   .update-button-container {
     min-width: 100%;
-    margin: 0;
+    margin: 0 auto;
   }
 }
 

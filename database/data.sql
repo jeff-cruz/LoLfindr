@@ -66,7 +66,7 @@ insert into "users" (
   'Mayumi',
   'password',
   'now',
-  '/images/mayumi.webp',
+  '/images/mayumi.png',
   'Mayumi',
   'twitch.tv/mayumi',
   'Diamond'

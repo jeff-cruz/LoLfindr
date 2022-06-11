@@ -45,7 +45,7 @@ function User(props) {
     <a
       href={`#users?userId=${userId}`}
       className='text-dark card mb-4 shadow-sm text-decoration-none'>
-      <img src={imageUrl} className='card-img-top' alt={name} />
+      <img src={imageUrl} className='card-img' alt={name} />
       <div className='card-body text-white poppins-font'>
         <h3 className='card-title text-center'> {name} </h3>
         <p className='rank-title'>
