@@ -59,11 +59,33 @@ app.get('/api/ranks-filter', (req, res, next) => {
                 "rankUrl"
     from "ranks"
   `;
-
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
+});
 
+// get roles on search bar
+app.get('/api/roles-filter', (req, res, next) => {
+  const sql = `
+        select  "roleId",
+                "roleUrl"
+    from "roles"
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
+// get champions on search bar
+app.get('/api/champions-filter', (req, res, next) => {
+  const sql = `
+        select  "championId",
+                "championUrl"
+    from "champions"
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
 });
 
 // get ranks on update profile
@@ -80,40 +102,12 @@ app.get('/api/ranks-update', (req, res, next) => {
 
 });
 
-// get roles on search bar
-app.get('/api/roles-filter', (req, res, next) => {
-  const sql = `
-        select  "roleId",
-                "roleUrl"
-    from "roles"
-  `;
-
-  db.query(sql)
-    .then(result => res.json(result.rows))
-    .catch(err => next(err));
-
-});
-
 // get roles data on update profile
 app.get('/api/roles-update', (req, res, next) => {
   const sql = `
         select  "roleId",
                 "roleUrl"
     from "roles"
-  `;
-
-  db.query(sql)
-    .then(result => res.json(result.rows))
-    .catch(err => next(err));
-
-});
-
-// get champions on search bar
-app.get('/api/champions-filter', (req, res, next) => {
-  const sql = `
-        select  "championId",
-                "championUrl"
-    from "champions"
   `;
 
   db.query(sql)
