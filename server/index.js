@@ -64,7 +64,7 @@ app.get('/api/ranks-filter', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get roles on search bar
+// get roles data on search bar
 app.get('/api/roles-filter', (req, res, next) => {
   const sql = `
         select  "roleId",
@@ -76,7 +76,7 @@ app.get('/api/roles-filter', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get champions on search bar
+// get champions data on search bar
 app.get('/api/champions-filter', (req, res, next) => {
   const sql = `
         select  "championId",
@@ -99,7 +99,6 @@ app.get('/api/ranks-update', (req, res, next) => {
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
-
 });
 
 // get roles data on update profile
@@ -113,7 +112,6 @@ app.get('/api/roles-update', (req, res, next) => {
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
-
 });
 
 // get champions on update profile
@@ -127,10 +125,9 @@ app.get('/api/champions-update', (req, res, next) => {
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
-
 });
 
-// get user card data by searching by rank
+// get user card data by filtering
 app.get('/api/filter', (req, res, next) => {
   const rankId = req.query.rankId;
   const roleId = req.query.roleId;
