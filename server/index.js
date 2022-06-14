@@ -59,11 +59,33 @@ app.get('/api/ranks-filter', (req, res, next) => {
                 "rankUrl"
     from "ranks"
   `;
-
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
+});
 
+// get roles data on search bar
+app.get('/api/roles-filter', (req, res, next) => {
+  const sql = `
+        select  "roleId",
+                "roleUrl"
+    from "roles"
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
+// get champions data on search bar
+app.get('/api/champions-filter', (req, res, next) => {
+  const sql = `
+        select  "championId",
+                "championUrl"
+    from "champions"
+  `;
+  db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
 });
 
 // get ranks on update profile
@@ -77,21 +99,6 @@ app.get('/api/ranks-update', (req, res, next) => {
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
-
-});
-
-// get roles on search bar
-app.get('/api/roles-filter', (req, res, next) => {
-  const sql = `
-        select  "roleId",
-                "roleUrl"
-    from "roles"
-  `;
-
-  db.query(sql)
-    .then(result => res.json(result.rows))
-    .catch(err => next(err));
-
 });
 
 // get roles data on update profile
@@ -105,21 +112,6 @@ app.get('/api/roles-update', (req, res, next) => {
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
-
-});
-
-// get champions on search bar
-app.get('/api/champions-filter', (req, res, next) => {
-  const sql = `
-        select  "championId",
-                "championUrl"
-    from "champions"
-  `;
-
-  db.query(sql)
-    .then(result => res.json(result.rows))
-    .catch(err => next(err));
-
 });
 
 // get champions on update profile
@@ -133,10 +125,9 @@ app.get('/api/champions-update', (req, res, next) => {
   db.query(sql)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
-
 });
 
-// get user card data by searching by rank
+// get user card data by filtering
 app.get('/api/filter', (req, res, next) => {
   const rankId = req.query.rankId;
   const roleId = req.query.roleId;
@@ -304,6 +295,50 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 app.use(authorizationMiddleware);
 
 app.get('/api/user-details', (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    select "u"."userId",
+            "u"."name",
+            "u"."imageUrl",
+            "u"."bio",
+            coalesce ("c"."champions", '[]'::json) as "champions",
+            coalesce ("rl"."roles", '[]'::json) as "roles",
+            "rk".*
+      from "users" as "u"
+    left join "ranks" as "rk" using ("rankId")
+    left join lateral (
+      select json_agg("c") as "champions"
+      from (
+        select "c".*
+        from "champions" as "c"
+        join "userChampions" as "uc" using ("championId")
+        where "uc"."userId" = "u"."userId"
+      ) as "c"
+    ) as "c" on true
+    left join lateral (
+      select json_agg("rl") as "roles"
+      from (
+        select "rl".*
+        from "roles" as "rl"
+        join "userRoles" as "url" using ("roleId")
+        where "url"."userId" = "u"."userId"
+      ) as "rl"
+    ) as "rl" on true
+    where "userId" = $1
+  `;
+
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows[0]) {
+        throw new ClientError(404, `cannot find user with userId ${userId}`);
+      }
+      res.json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/user-profile', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
     select "u"."userId",

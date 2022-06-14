@@ -13,6 +13,7 @@ export default class UpdateProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      form: null,
       name: '',
       bio: '',
       selectedRank: '',
@@ -20,7 +21,10 @@ export default class UpdateProfile extends React.Component {
       selectedRoleTwo: '',
       selectedChampionOne: '',
       selectedChampionTwo: '',
-      selectedChampionThree: ''
+      selectedChampionThree: '',
+      rankOptions: [],
+      roleOptions: [],
+      championOptions: []
     };
     this.fileInputRef = React.createRef();
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -35,17 +39,52 @@ export default class UpdateProfile extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/ranks-update')
-      .then(res => res.json())
-      .then(ranks => this.setState({ ranks }));
+    Promise.all([
+      fetch('/api/ranks-update')
+        .then(res => res.json()),
 
-    fetch('/api/roles-update')
-      .then(res => res.json())
-      .then(roles => this.setState({ roles }));
+      fetch('/api/roles-update')
+        .then(res => res.json()),
 
-    fetch('/api/champions-update')
-      .then(res => res.json())
-      .then(champions => this.setState({ champions }));
+      fetch('/api/champions-update')
+        .then(res => res.json())
+
+    ])
+      .then(results => {
+        const [rankOptions, roleOptions, championOptions] = results;
+
+        const token = localStorage.getItem('react-context-jwt');
+        const req = {
+          method: 'GET',
+          headers: {
+            'X-Access-Token': token
+          }
+        };
+
+        fetch('/api/user-details', req)
+          .then(res => res.json())
+          .then(form => {
+            const { imageUrl, name, bio, rankId, roles, champions } = form;
+            const rank = rankOptions.find(rank => rankId === rank.rankId);
+            const [roleOne, roleTwo] = roleOptions.filter(role => roles.some(userRole => role.roleId === userRole.roleId));
+            const [championOne, championTwo, championThree] = championOptions.filter(champion => champions.some(userChampion => champion.championId === userChampion.championId));
+            this.setState({
+              imageUrl,
+              name,
+              bio,
+              selectedRank: rank,
+              rankOptions,
+              roleOptions,
+              championOptions,
+              selectedRoleOne: roleOne,
+              selectedRoleTwo: roleTwo,
+              selectedChampionOne: championOne,
+              selectedChampionTwo: championTwo,
+              selectedChampionThree: championThree
+            });
+          });
+      });
+
   }
 
   handleChangeName(event) {
@@ -84,33 +123,44 @@ export default class UpdateProfile extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = localStorage.getItem('react-context-jwt');
-    const formData = new FormData();
-    formData.append('image', this.fileInputRef.current.files[0]);
-    formData.append('name', this.state.name);
-    formData.append('bio', this.state.bio);
-    formData.append('rankId', this.state.selectedRank.rankId);
-    formData.append('roles', this.state.selectedRoleOne.roleId);
-    formData.append('roles', this.state.selectedRoleTwo.roleId);
-    formData.append('champions', this.state.selectedChampionOne.championId);
-    formData.append('champions', this.state.selectedChampionTwo.championId);
-    formData.append('champions', this.state.selectedChampionThree.championId);
-    const req = {
-      method: 'PUT',
-      headers: {
-        'X-Access-Token': token
-      },
-      body: formData
-    };
-    fetch('/api/user', req)
-      .then(res => res.json())
-      .then(result => {
-        window.location.hash = '';
-        this.fileInputRef.current.value = null;
-      });
+    if (this.state.name === '' || this.state.name === null || this.state.selectedRank === undefined || this.state.selectedRoleOne === undefined || this.state.selectedRoleTwo === undefined ||
+    this.state.selectedChampionOne === undefined || this.state.selectedChampionTwo === undefined || this.state.selectedChampionThree === undefined) {
+      alert('All fields are required to submit.');
+    } else {
+      const token = localStorage.getItem('react-context-jwt');
+      const formData = new FormData();
+      formData.append('image', this.fileInputRef.current.files[0]);
+      formData.append('name', this.state.name);
+      formData.append('bio', this.state.bio);
+      formData.append('rankId', this.state.selectedRank.rankId);
+      formData.append('roles', this.state.selectedRoleOne.roleId);
+      formData.append('roles', this.state.selectedRoleTwo.roleId);
+      formData.append('champions', this.state.selectedChampionOne.championId);
+      formData.append('champions', this.state.selectedChampionTwo.championId);
+      formData.append('champions', this.state.selectedChampionThree.championId);
+
+      const req = {
+        method: 'PUT',
+        headers: {
+          'X-Access-Token': token
+        },
+        body: formData
+      };
+
+      fetch('/api/user', req)
+        .then(res => res.json())
+        .then(result => {
+          window.location.hash = '';
+          this.fileInputRef.current.value = null;
+        });
+    }
   }
 
   render() {
+    const imgClass = this.state.imageUrl === null
+      ? '/images/placeholder.png'
+      : this.state.imageUrl;
+
     return (
       <>
         <div className='container update-user-container poppins-font d-flex'>
@@ -120,17 +170,20 @@ export default class UpdateProfile extends React.Component {
           </div>
           <div className='update-details-container'>
             <div className='text-center'>
-              <img className='user-profile-picture' src='../images/placeholder.png'></img>
+                <img className='user-profile-picture' src={imgClass}></img>
+            </div>
+              <div className='upload-container'>
                   <input
+                    className='upload-image'
                     type="file"
                     name="image"
                     ref={this.fileInputRef}
                     accept=".png, .jpg, .jpeg, .gif" />
-            </div>
+              </div>
             <div className='user-profile-bio'>
               <div>
                 <label htmlFor='name' className='update-name'>Name:</label>
-                <input className='update-name' value={this.state.name} type='text' id='name' name='name' onChange={this.handleChangeName}/>
+                <input className='update-name' value={this.state.name} type='text' id='name' name='name' onChange={this.handleChangeName} />
               </div>
               <div>
                 <label htmlFor='bio'>Bio:</label>
@@ -150,7 +203,7 @@ export default class UpdateProfile extends React.Component {
                 placeholder='Select Rank'
                 id='rankId'
                 name='rankId'
-                options={ this.state.ranks }
+                options={ this.state.rankOptions }
                 getOptionValue= {rank => rank.rankId }
                 components= {{ Option: RankOptions, SingleValue: RankOptions }}
                 value={ this.state.selectedRank }
@@ -167,7 +220,7 @@ export default class UpdateProfile extends React.Component {
                 placeholder='Select Role'
                 id='roles'
                 name='roles'
-                options={ this.state.roles }
+                options={ this.state.roleOptions }
                 getOptionValue={role => role.roleId}
                 components={{ Option: RoleOptions, SingleValue: RoleOptions }}
                 value={ this.state.selectedRoleOne }
@@ -182,7 +235,7 @@ export default class UpdateProfile extends React.Component {
                 placeholder='Select Role'
                 id='roles'
                 name='roles'
-                options={ this.state.roles }
+                options={ this.state.roleOptions }
                 getOptionValue={role => role.roleId}
                 components={{ Option: RoleOptions, SingleValue: RoleOptions }}
                 value={ this.state.selectedRoleTwo }
@@ -199,7 +252,7 @@ export default class UpdateProfile extends React.Component {
               placeholder='Select Champion'
               id='champions'
               name='champions'
-              options={ this.state.champions }
+              options={ this.state.championOptions }
               getOptionValue={champion => champion.championId}
               components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
               value={ this.state.selectedChampionOne }
@@ -214,7 +267,7 @@ export default class UpdateProfile extends React.Component {
               placeholder='Select Champion'
               id='champions'
               name='champions'
-              options={ this.state.champions }
+              options={ this.state.championOptions }
               getOptionValue={champion => champion.championId}
               components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
               value={ this.state.selectedChampionTwo }
@@ -229,7 +282,7 @@ export default class UpdateProfile extends React.Component {
               placeholder='Select Champion'
               id='champions'
               name='champions'
-              options={ this.state.champions }
+              options={this.state.championOptions }
               getOptionValue={champion => champion.championId}
               components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
               value={ this.state.selectedChampionThree }
@@ -237,7 +290,7 @@ export default class UpdateProfile extends React.Component {
             />
           </div>
         </div>
-        <div className='d-flex update-button-container'>
+        <div className='update-button-container'>
           <button className='text-center poppins-font update-button'>Update Profile</button>
         </div>
         </form>

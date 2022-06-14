@@ -30,6 +30,12 @@ body {
   font-family: Poppins, sans-serif;
 }
 
+.card-img {
+  object-fit: cover;
+  height: 20rem;
+  background-color: #9478e2;
+}
+
 .glass-card {
   background-color: rgba(255, 255, 255, 0.35);
 }
@@ -69,7 +75,7 @@ body {
 }
 
 .drawer {
-  background: linear-gradient(0.375turn, #3f1f97, #5c39bc, #8364d9, #a689f8);
+  background: linear-gradient(0.375turn, #3f1f97, #a689f8);
   position: absolute;
   z-index: 102;
   top: 0;
@@ -87,7 +93,7 @@ body {
 .drawer-logo {
   height: 10rem;
   width: 10rem;
-  margin: 0 auto;
+  margin: 2rem auto 0;
 }
 
 .drawer-links {
@@ -97,6 +103,10 @@ body {
   margin-bottom: 0.5rem;
   color: white;
   font-weight: 600;
+}
+
+.drawer-links:hover {
+  color: #2764f6;
 }
 
 .hidden {
@@ -259,22 +269,22 @@ body {
 .card-rank-icon {
   width: 5rem;
   height: 5rem;
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 4.5rem;
+  margin-right: 4.5rem;
 }
 
 .card-role-icon {
   width: 20%;
   height: 20%;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
 .card-champion-icon {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 5.25rem;
+  height: 5.25rem;
 }
 
 .filter-form {
@@ -336,7 +346,7 @@ span {
 }
 
 .search-button:hover {
-  color: #9478e3;
+  color: #2764f6;
 }
 
 .search-button:active {
@@ -454,18 +464,14 @@ span {
   margin-top: 1rem;
 }
 
-/* .update-details-container {
-  width: 20rem;
-  height: auto;
-  margin: 0.75rem auto;
-  border-radius: 30px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-} */
-
 .update-glass-card {
   background-color: rgba(255, 255, 255, 0.35);
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.update-form-heading {
+  margin-top: 1rem;
 }
 
 .update-title {
@@ -473,10 +479,15 @@ span {
   font-weight: 600;
 }
 
+.upload-image {
+  color: white;
+  padding: 1rem 3rem;
+}
+
 .update-details-container {
   width: 20rem;
   height: auto;
-  margin: 0.75rem auto;
+  margin: 0 auto;
   padding: 3rem auto;
   border-radius: 30px;
   flex-direction: column;
@@ -498,8 +509,10 @@ span {
 }
 
 .update-button-container {
+  display: flex;
   justify-content: center;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   width: 100%;
 }
 
@@ -510,7 +523,8 @@ span {
   width: 12rem;
   border-radius: 30px;
   padding: 0.5rem 1rem;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border: 0;
   font-weight: 600;
   box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.3);
@@ -541,7 +555,7 @@ input:focus {
 .details-heading {
   color: white;
   text-decoration: underline;
-  margin: 0;
+  margin: 1rem 0 0;
 }
 
 /* user list: single column */
@@ -563,9 +577,20 @@ input:focus {
 
 /* user list: double column and wider */
 @media screen and (min-width: 769px) {
-  /* .search-bar {
-  height: 4rem;
-} */
+  .card-rank-icon {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
+  }
+
+  .card-role-icon {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
+  .card-champion-icon {
+    width: 5rem;
+    height: 5rem;
+  }
 }
 
 /* user list: triple column */
@@ -576,8 +601,8 @@ input:focus {
   }
 
   .card-role-icon {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 1.125rem;
+    margin-right: 1.125rem;
   }
 
   .card-rank-icon {
@@ -707,6 +732,25 @@ input:focus {
 
   .update-button-container {
     min-width: 100%;
-    margin: 0;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card-rank-icon {
+    width: 6rem;
+    height: 6rem;
+    margin-left: 4.25rem;
+    margin-right: 4.25rem;
+  }
+
+  .card-role-icon {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
+  .card-champion-icon {
+    width: 4.5rem;
+    height: 4.5rem;
   }
 }
