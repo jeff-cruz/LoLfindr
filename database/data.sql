@@ -30,55 +30,56 @@ insert into "ranks" (
   '/images/ranked-emblems/challenger.png'
 );
 
-insert into "users" (
-  "username",
-  "hashedPassword",
-  "createdAt",
-  "imageUrl",
-  "name",
-  "bio",
-  "rankId"
-  ) values (
-  'Soren',
-  'password',
-  'now',
-  '/images/bjergsen.jpeg',
-  'Bjergsen',
-  'Hey guys, it is the Bjerger King. Hailing from Denmark. Former TSM Mid-Laner, current Mid-Laner for TL. One of the most respectful players by the way. ',
-  'Challenger'
-  ), (
-  'Peter',
-  'password',
-  'now',
-  '/images/doublelift.png',
-  'Doublelift',
-  'Doublelift here, you are trash. Arguably one of the best ADCs of all-time, specifically to not flash at Worlds 2017 with TSM. You can catch me at twitch.tv/doublelift | youtube.com/Doublelift | twitter.com/Doublelift1',
-  'Bronze'
-), (
-  'Faker',
-  'password',
-  'now',
-  '/images/faker.webp',
-  'Faker',
-  '나는 현재 가장 위대한 사람이다! 저는 SKT T1의 미드라이너로 리그 오브 레전드를 전문적으로 플레이하고 있습니다. ',
-  'Grandmaster'
-), (
-  'Mayumi',
-  'password',
-  'now',
-  '/images/mayumi.png',
-  'Mayumi',
-  'twitch.tv/mayumi',
-  'Diamond'
-), (
-  'HungryBox',
-  'password',
-  'now',
-  '/images/hungrybox.jpeg',
-  'HungryBox',
-  'Professional Super Smash Bros. Player, I do not really know what I am doing here but you know, POG.',
-  'Iron'
-);
+-- insert into "users" (
+--   "username",
+--   "hashedPassword",
+--   "createdAt",
+--   "imageUrl",
+--   "name",
+--   "bio",
+--   "rankId"
+--   )
+  -- values (
+--   'Soren',
+--   'password',
+--   'now',
+--   '/images/bjergsen.jpeg',
+--   'Bjergsen',
+--   'Hey guys, it is the Bjerger King. Hailing from Denmark. Former TSM Mid-Laner, current Mid-Laner for TL. One of the most respectful players by the way. ',
+--   'Challenger'
+--   ), (
+--   'Peter',
+--   'password',
+--   'now',
+--   '/images/doublelift.png',
+--   'Doublelift',
+--   'Doublelift here, you are trash. Arguably one of the best ADCs of all-time, specifically to not flash at Worlds 2017 with TSM. You can catch me at twitch.tv/doublelift | youtube.com/Doublelift | twitter.com/Doublelift1',
+--   'Bronze'
+-- ), (
+--   'Faker',
+--   'password',
+--   'now',
+--   '/images/faker.webp',
+--   'Faker',
+--   '나는 현재 가장 위대한 사람이다! 저는 SKT T1의 미드라이너로 리그 오브 레전드를 전문적으로 플레이하고 있습니다. ',
+--   'Grandmaster'
+-- ), (
+--   'Mayumi',
+--   'password',
+--   'now',
+--   '/images/mayumi.png',
+--   'Mayumi',
+--   'twitch.tv/mayumi',
+--   'Diamond'
+-- ), (
+--   'HungryBox',
+--   'password',
+--   'now',
+--   '/images/hungrybox.jpeg',
+--   'HungryBox',
+--   'Professional Super Smash Bros. Player, I do not really know what I am doing here but you know, POG.',
+--   'Iron'
+-- );
 
 insert into "roles" (
   "roleId",
@@ -586,128 +587,128 @@ insert into "champions" (
 );
 
 
-insert into "userChampions" (
-  "userId",
-  "championId"
-) values (
-  1,
-  'Syndra'
-), (
-  1,
-  'Leblanc'
-), (
-  1,
-  'Zilean'
-);
+-- insert into "userChampions" (
+--   "userId",
+--   "championId"
+-- ) values (
+--   1,
+--   'Syndra'
+-- ), (
+--   1,
+--   'Leblanc'
+-- ), (
+--   1,
+--   'Zilean'
+-- );
 
-insert into "userChampions" (
-  "userId",
-  "championId"
-) values (
-  2,
-  'Vayne'
-), (
-  2,
-  'Jinx'
-), (
-  2,
-  'Ezreal'
-);
+-- insert into "userChampions" (
+--   "userId",
+--   "championId"
+-- ) values (
+--   2,
+--   'Vayne'
+-- ), (
+--   2,
+--   'Jinx'
+-- ), (
+--   2,
+--   'Ezreal'
+-- );
 
-insert into "userChampions" (
-  "userId",
-  "championId"
-) values (
-  3,
-  'Zed'
-), (
-  3,
-  'Azir'
-), (
-  3,
-  'Orianna'
-);
+-- insert into "userChampions" (
+--   "userId",
+--   "championId"
+-- ) values (
+--   3,
+--   'Zed'
+-- ), (
+--   3,
+--   'Azir'
+-- ), (
+--   3,
+--   'Orianna'
+-- );
 
-insert into "userChampions" (
-  "userId",
-  "championId"
-) values (
-  4,
-  'Morgana'
-), (
-  4,
-  'Thresh'
-), (
-  4,
-  'Leona'
-);
+-- insert into "userChampions" (
+--   "userId",
+--   "championId"
+-- ) values (
+--   4,
+--   'Morgana'
+-- ), (
+--   4,
+--   'Thresh'
+-- ), (
+--   4,
+--   'Leona'
+-- );
 
-insert into "userChampions" (
-  "userId",
-  "championId"
-) values (
-  5,
-  'Sett'
-), (
-  5,
-  'Sion'
-), (
-  5,
-  'Renekton'
-);
+-- insert into "userChampions" (
+--   "userId",
+--   "championId"
+-- ) values (
+--   5,
+--   'Sett'
+-- ), (
+--   5,
+--   'Sion'
+-- ), (
+--   5,
+--   'Renekton'
+-- );
 
 
-insert into "userRoles" (
-  "userId",
-  "roleId"
-) values (
-  1,
-  'Mid'
-), (
-  1,
-  'Jungle'
-);
+-- insert into "userRoles" (
+--   "userId",
+--   "roleId"
+-- ) values (
+--   1,
+--   'Mid'
+-- ), (
+--   1,
+--   'Jungle'
+-- );
 
-insert into "userRoles" (
-  "userId",
-  "roleId"
-) values (
-  2,
-  'Bot'
-), (
-  2,
-  'Support'
-);
+-- insert into "userRoles" (
+--   "userId",
+--   "roleId"
+-- ) values (
+--   2,
+--   'Bot'
+-- ), (
+--   2,
+--   'Support'
+-- );
 
-insert into "userRoles" (
-  "userId",
-  "roleId"
-) values (
-  3,
-  'Mid'
-), (
-  3,
-  'Top'
-);
+-- insert into "userRoles" (
+--   "userId",
+--   "roleId"
+-- ) values (
+--   3,
+--   'Mid'
+-- ), (
+--   3,
+--   'Top'
+-- );
 
-insert into "userRoles" (
-  "userId",
-  "roleId"
-) values (
-  4,
-  'Support'
-), (
-  4,
-  'Mid'
-);
+-- insert into "userRoles" (
+--   "userId",
+--   "roleId"
+-- ) values (
+--   4,
+--   'Support'
+-- ), (
+--   4,
+--   'Mid'
+-- );
 
-insert into "userRoles" (
-  "userId",
-  "roleId"
-) values (
-  5,
-  'Top'
-), (
-  5,
-  'Jungle'
-);
+-- insert into "userRoles" (
+--   "userId",
+--   "roleId"
+-- ) values (
+--   5,
+--   'Top'
+-- ), (
+--   5,
+--   'Jungle'
+-- );
