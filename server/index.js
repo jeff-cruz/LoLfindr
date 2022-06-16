@@ -389,7 +389,7 @@ app.put('/api/user', uploadsMiddleware, express.urlencoded({ extended: true }), 
     throw new ClientError(400, 'name, bio, rankId, roles, champions are required fields');
   }
   const imageUrl = req.file
-    ? `/images/${req.file.filename}`
+    ? `https://lolfindr.s3.us-west-1.amazonaws.com/${req.file.key}`
     : null;
 
   const sql = `

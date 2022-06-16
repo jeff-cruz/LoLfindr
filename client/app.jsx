@@ -14,7 +14,6 @@ import UpdateProfile from './components/update-profile';
 import MyProfile from './components/my-profile';
 
 export default class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
