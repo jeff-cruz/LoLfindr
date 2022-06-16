@@ -7,6 +7,7 @@ import SearchBar from '../components/search-bar';
 import UserList from '../components/user-list';
 
 export default class Home extends React.Component {
+
   render() {
 
     if (!this.context.user) return <Redirect to="#auth?action=sign-up" />;
