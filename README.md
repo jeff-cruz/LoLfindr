@@ -51,6 +51,9 @@ Stretch Features
 
 ### Getting Started
 1. Clone the repository.
+```shell
+    git clone https://github.com/jeff-cruz/LoLfindr.git
+```
 
 2. Install all dependencies with NPM.
 ```shell
