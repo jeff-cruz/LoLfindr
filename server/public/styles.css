@@ -17,6 +17,16 @@ body {
   border-radius: 50%;
 }
 
+.error-page {
+  position: fixed;
+  top: 35%;
+  left: 0%;
+}
+
+.error-link {
+  color: #2764f6;
+}
+
 .profile-icon {
   height: 4rem;
   width: 4rem;
