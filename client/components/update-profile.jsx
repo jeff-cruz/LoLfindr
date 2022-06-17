@@ -123,7 +123,7 @@ export default class UpdateProfile extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.name === '' || this.state.name === null || this.state.selectedRank === undefined || this.state.selectedRoleOne === undefined || this.state.selectedRoleTwo === undefined ||
+    if (this.fileInputRef.current.files[0] === undefined || this.state.name === '' || this.state.name === null || this.state.selectedRank === undefined || this.state.selectedRoleOne === undefined || this.state.selectedRoleTwo === undefined ||
     this.state.selectedChampionOne === undefined || this.state.selectedChampionTwo === undefined || this.state.selectedChampionThree === undefined) {
       alert('All fields are required to submit.');
     } else {
