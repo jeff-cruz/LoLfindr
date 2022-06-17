@@ -1,9 +1,24 @@
 # LoLfindr
+A full stack JavaScript application for League of Legends players to find other League of Legends players to play with.
+
+As a League of Legends (LoL) player, playing with friends is fun, but when I didn't have friends to play with, it didn't feel as fun. I wanted to build my first full stack project relating to LoL to have players visit the app and create their own accounts to find other people to play with!
 
 ## Live Demo
+![Kapture 2022-06-17 at 13 45 37](https://user-images.githubusercontent.com/99565410/174399209-f64edfe9-7766-4a2b-acfa-ee76fc33db20.gif)
+![Kapture 2022-06-17 at 13 49 38](https://user-images.githubusercontent.com/99565410/174399337-51290f96-a34e-4910-ad1a-24aa9b50cfef.gif)
+
 
 ## List of technologies used
-
+* React.js
+* Express.js
+* Webpack
+* React-Bootstrap
+* React-Select
+* Node.js
+* HTML5
+* CSS3
+* Argon2
+* Heroku
 
 ## Features Implemented
 * User can view a list of other League of Legends players
