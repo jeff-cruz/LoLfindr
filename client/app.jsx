@@ -12,6 +12,7 @@ import SearchBar from './components/search-bar';
 import UserList from './components/user-list';
 import UpdateProfile from './components/update-profile';
 import MyProfile from './components/my-profile';
+// import Redirect from './components/redirect';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export default class App extends React.Component {
     } else if (route.path === '') {
       return (
         <>
-          <Home/>
+          <Home />
         </>
       );
     } else if (route.path === 'filter') {

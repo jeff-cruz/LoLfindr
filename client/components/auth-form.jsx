@@ -4,8 +4,8 @@ export default class AuthForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: ''
+      username: 'TestUser',
+      password: 'password'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -102,7 +102,8 @@ export default class AuthForm extends React.Component {
                 id="username"
                 name="username"
                 onChange={this.handleChange}
-                placeholder="Enter Username" />
+                placeholder="Enter Username"
+                value={this.state.username} />
             </div>
             <div className="d-flex">
               <label htmlFor="input-password"></label>
@@ -114,7 +115,8 @@ export default class AuthForm extends React.Component {
                 id="password"
                 name="password"
                 onChange={this.handleChange}
-                placeholder="Enter Password" />
+                placeholder="Enter Password"
+                value={this.state.password} />
             </div>
             <button type="submit" className="login-button">Log In</button>
           </form>
