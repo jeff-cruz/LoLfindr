@@ -13,12 +13,12 @@ export default function NotFound(props) {
   return (
     <div style={styles.pageContent}>
       <div className="row">
-        <div className="col text-center mb-5">
+        <div className="col text-center mb-5 error-page">
           <h3>
             Uh oh, we could not find the page you were looking for!
           </h3>
           <p className="text-muted">
-            <a href="#">Return Home</a>
+            <a className="error-link" href="#">Return Home</a>
           </p>
         </div>
       </div>

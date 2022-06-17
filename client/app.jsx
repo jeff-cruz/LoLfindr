@@ -57,7 +57,7 @@ export default class App extends React.Component {
     } else if (route.path === '') {
       return (
         <>
-          <Home/>
+          <Home />
         </>
       );
     } else if (route.path === 'filter') {

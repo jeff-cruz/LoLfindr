@@ -10,7 +10,7 @@ export default class Home extends React.Component {
 
   render() {
 
-    if (!this.context.user) return <Redirect to="#auth?action=sign-up" />;
+    if (!this.context.user) return <Redirect to="#auth?action=sign-in" />;
 
     return (
       <div>
