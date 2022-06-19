@@ -1,3 +1,4 @@
+/* universal */
 a,
 button,
 .filter-select {
@@ -18,6 +19,11 @@ body {
   border-radius: 50%;
 }
 
+.poppins-font {
+  font-family: Poppins, sans-serif;
+}
+
+/* error page */
 .error-page {
   position: fixed;
   top: 35%;
@@ -28,6 +34,7 @@ body {
   color: #2764f6;
 }
 
+/* nav bar */
 .profile-icon {
   height: 4rem;
   width: 4rem;
@@ -36,34 +43,6 @@ body {
   margin-top: 0.25rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-}
-
-.poppins-font {
-  font-family: Poppins, sans-serif;
-}
-
-.card-img {
-  object-fit: cover;
-  height: 20rem;
-  background-color: #9478e2;
-}
-
-.glass-card {
-  background-color: rgba(255, 255, 255, 0.35);
-}
-
-.glass-container {
-  margin-top: 5rem;
-  width: 70rem;
-  height: 20rem;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border: 0.5px solid white;
-  overflow-x: auto;
-  position: relative;
-  z-index: 1;
 }
 
 .search-bar {
@@ -77,13 +56,6 @@ body {
 
 .navbar {
   justify-content: center;
-}
-
-.full-container {
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  z-index: 100;
 }
 
 .drawer {
@@ -147,6 +119,7 @@ body {
   transition: 0.3s;
 }
 
+/* sign up & sign in page */
 .main-logo {
   width: 8rem;
   height: 8rem;
@@ -250,6 +223,38 @@ body {
   transform: translateY(2px);
 }
 
+/* user card */
+.card-img {
+  object-fit: cover;
+  height: 20rem;
+  background-color: #9478e2;
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.glass-container {
+  margin-top: 5rem;
+  width: 70rem;
+  height: 20rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 0.5px solid white;
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.full-container {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 100;
+}
+
 .card {
   width: 100%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -299,6 +304,7 @@ body {
   height: 5rem;
 }
 
+/* search bar */
 .filter-form {
   color: black;
   font-size: 1.2rem;
@@ -370,6 +376,7 @@ span {
   flex-direction: column;
 }
 
+/* user profile */
 .user-profile {
   margin-top: 1rem;
   flex-direction: column;
@@ -476,6 +483,7 @@ span {
   margin-top: 1rem;
 }
 
+/* edit profile page */
 .update-glass-card {
   background-color: rgba(255, 255, 255, 0.35);
   padding-top: 1.25rem;
@@ -572,10 +580,12 @@ input:focus {
 
 /* user list: single column */
 @media screen and (min-width: 391px) and (max-width: 768px) {
+  /* search bar */
   .search-bar {
     height: 12rem;
   }
 
+  /* user card */
   .card-rank-icon {
     margin-left: 9rem;
     margin-right: 9rem;
@@ -589,6 +599,7 @@ input:focus {
 
 /* user list: double column and wider */
 @media screen and (min-width: 769px) {
+  /* user card */
   .card-rank-icon {
     margin-left: 4.5rem;
     margin-right: 4.5rem;
@@ -607,24 +618,10 @@ input:focus {
 
 /* user list: triple column */
 @media screen and (min-width: 992px) {
+  /* search bar */
   .filter-container {
     margin-top: 0.25rem;
     margin-bottom: 0;
-  }
-
-  .card-role-icon {
-    margin-left: 1.125rem;
-    margin-right: 1.125rem;
-  }
-
-  .card-rank-icon {
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
-
-  .card-champion-icon {
-    width: 4rem;
-    height: 4rem;
   }
 
   .search-bar {
@@ -641,6 +638,23 @@ input:focus {
     height: 3rem;
   }
 
+  /* user card */
+  .card-role-icon {
+    margin-left: 1.125rem;
+    margin-right: 1.125rem;
+  }
+
+  .card-rank-icon {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+
+  .card-champion-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  /* user profile */
   .user-profile {
     flex-direction: row;
     margin-top: 0;
@@ -710,6 +724,7 @@ input:focus {
     margin-right: 3rem;
   }
 
+  /* edit profile */
   .update-user-container {
     display: flex;
     flex-direction: row;
@@ -749,6 +764,7 @@ input:focus {
 }
 
 @media screen and (min-width: 1200px) {
+  /* user card */
   .card-rank-icon {
     width: 6rem;
     height: 6rem;
