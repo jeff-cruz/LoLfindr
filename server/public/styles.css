@@ -33,6 +33,7 @@ body {
   width: 4rem;
   object-fit: cover;
   border-radius: 50%;
+  margin-top: 0.25rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
