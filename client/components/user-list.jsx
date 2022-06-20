@@ -1,4 +1,5 @@
 import React from 'react';
+import { Spinner } from 'react-bootstrap';
 
 export default class UserList extends React.Component {
   constructor(props) {
@@ -21,12 +22,10 @@ export default class UserList extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.routeParams !== this.props.routeParams) {
-      this.setState({ isLoading: true });
       fetch(`/api/filter?${this.props.routeParams}`)
         .then(res => res.json())
         .then(users => {
           this.setState({ users });
-          this.setState({ isLoading: false });
         });
     }
   }
@@ -36,9 +35,7 @@ export default class UserList extends React.Component {
     const hideOnLoad = this.state.isLoading ? 'd-none' : '';
     return (
       <div className='container user-list'>
-        <div className={'spinner-border position-absolute start-50 text-light' + isLoading} role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <Spinner animation="border" className={`loader + ${isLoading}`} variant="light" />
         <div className={'row ' + hideOnLoad}>
           {
             this.state.users.map(user => (
