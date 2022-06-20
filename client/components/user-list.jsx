@@ -36,7 +36,7 @@ export default class UserList extends React.Component {
     const hideOnLoad = this.state.isLoading ? 'd-none' : '';
     return (
       <div className='container user-list'>
-        <div className={'spinner-border position-absolute start-50 ' + isLoading} role="status">
+        <div className={'spinner-border position-absolute start-50 text-light' + isLoading} role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
         <div className={'row ' + hideOnLoad}>
