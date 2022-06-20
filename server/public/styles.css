@@ -578,6 +578,16 @@ input:focus {
   margin: 1rem 0 0;
 }
 
+.loader {
+  width: 100%;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
 /* user list: single column */
 @media screen and (min-width: 391px) and (max-width: 768px) {
   /* search bar */
