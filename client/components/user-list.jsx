@@ -4,28 +4,42 @@ export default class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      users: [],
+      isLoading: false
     };
   }
 
   componentDidMount() {
     fetch('/api/users')
       .then(res => res.json())
-      .then(users => this.setState({ users }));
+      .then(users => {
+        this.setState({ users });
+        this.setState({ isLoading: false });
+      });
+    this.setState({ isLoading: true });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.routeParams !== this.props.routeParams) {
       fetch(`/api/filter?${this.props.routeParams}`)
         .then(res => res.json())
-        .then(users => this.setState({ users }));
+        .then(users => {
+          this.setState({ users });
+          this.setState({ isLoading: false });
+        });
+      this.setState({ isLoading: true });
     }
   }
 
   render() {
+    const isLoading = this.state.isLoading ? '' : 'd-none';
+    const hideOnLoad = this.state.isLoading ? 'd-none' : '';
     return (
       <div className='container user-list'>
-        <div className='row'>
+        <div className={'spinner-border position-absolute start-50 text-light' + isLoading} role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className={'row ' + hideOnLoad}>
           {
             this.state.users.map(user => (
               <div key={user.userId} className=' user-card col-12 col-md-6 col-lg-4'>

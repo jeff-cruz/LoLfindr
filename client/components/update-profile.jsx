@@ -146,7 +146,6 @@ export default class UpdateProfile extends React.Component {
         },
         body: formData
       };
-
       fetch('/api/user', req)
         .then(res => res.json())
         .then(result => {
@@ -157,6 +156,7 @@ export default class UpdateProfile extends React.Component {
   }
 
   render() {
+
     const imgClass = this.state.imageUrl === null
       ? '/images/placeholder.png'
       : this.state.imageUrl;
