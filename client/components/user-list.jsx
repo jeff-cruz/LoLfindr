@@ -22,10 +22,12 @@ export default class UserList extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.routeParams !== this.props.routeParams) {
+      this.setState({ isLoading: true });
       fetch(`/api/filter?${this.props.routeParams}`)
         .then(res => res.json())
         .then(users => {
           this.setState({ users });
+          this.setState({ isLoading: false });
         });
     }
   }
