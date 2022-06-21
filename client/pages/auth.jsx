@@ -8,13 +8,13 @@ export default class AuthPage extends React.Component {
   render() {
 
     const { user, route, handleSignIn } = this.context;
-    const action = route.params.get('action');
     if (user) return <Redirect to='' />;
+    const action = route.params.get('action');
 
     return (
         <div className='sign-up-container d-flex text-center poppins-font'>
           <AuthForm
-            key={ route.path }
+            key={ action }
             action={ action }
             onSignIn={ handleSignIn }/>
         </div>

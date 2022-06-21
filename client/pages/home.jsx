@@ -12,14 +12,15 @@ export default class Home extends React.Component {
 
     if (!this.context.user) return <Redirect to="#auth?action=sign-in" />;
 
+    const { route } = this.context;
     return (
-      <div>
+      <>
         <Header />
         <PageContainer>
           <SearchBar />
-          <UserList />
+          <UserList routeParams={route.params}/>
         </PageContainer>
-      </div>
+      </>
     );
   }
 }
