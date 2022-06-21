@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import { Spinner } from 'react-bootstrap';
 
 const customStyles = {
   valueContainer: (provided, state) => {
@@ -24,7 +25,8 @@ export default class UpdateProfile extends React.Component {
       selectedChampionThree: '',
       rankOptions: [],
       roleOptions: [],
-      championOptions: []
+      championOptions: [],
+      isLoading: false
     };
     this.fileInputRef = React.createRef();
     this.handleChangeName = this.handleChangeName.bind(this);
@@ -82,6 +84,7 @@ export default class UpdateProfile extends React.Component {
               selectedChampionTwo: championTwo,
               selectedChampionThree: championThree
             });
+            this.setState({ isLoading: false });
           });
       });
 
@@ -123,6 +126,7 @@ export default class UpdateProfile extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ isLoading: true });
     if (this.fileInputRef.current.files[0] === undefined || this.state.name === '' || this.state.name === null || this.state.selectedRank === undefined || this.state.selectedRoleOne === undefined || this.state.selectedRoleTwo === undefined ||
     this.state.selectedChampionOne === undefined || this.state.selectedChampionTwo === undefined || this.state.selectedChampionThree === undefined) {
       alert('All fields are required to submit.');
@@ -153,6 +157,7 @@ export default class UpdateProfile extends React.Component {
           this.fileInputRef.current.value = null;
         });
     }
+    this.setState({ isLoading: false });
   }
 
   render() {
@@ -161,139 +166,145 @@ export default class UpdateProfile extends React.Component {
       ? '/images/placeholder.png'
       : this.state.imageUrl;
 
+    const isLoading = this.state.isLoading ? '' : 'd-none';
+    const hideOnLoad = this.state.isLoading ? 'd-none' : '';
+
     return (
       <>
         <div className='container update-user-container poppins-font d-flex'>
-          <form onSubmit={this.handleSubmit} className='update-form' autoComplete="off">
-          <div className='update-form-heading'>
-            <h1 className='text-center update-title'>Edit Profile</h1>
-          </div>
-          <div className='update-details-container'>
-            <div className='text-center'>
-                <img className='user-profile-picture' src={imgClass}></img>
+          <Spinner animation="border" className={`loader + ${isLoading}`} variant="light" />
+          <div className={hideOnLoad}>
+            <form onSubmit={this.handleSubmit} className='update-form' autoComplete="off">
+            <div className='update-form-heading'>
+              <h1 className='text-center update-title'>Edit Profile</h1>
             </div>
-              <div className='upload-container'>
-                  <input
-                    className='upload-image'
-                    type="file"
-                    name="image"
-                    ref={this.fileInputRef}
-                    accept=".png, .jpg, .jpeg, .gif" />
+            <div className='update-details-container'>
+              <div className='text-center'>
+                  <img className='user-profile-picture' src={imgClass}></img>
               </div>
-            <div className='user-profile-bio'>
-              <div>
-                <label htmlFor='name' className='update-name'>Name:</label>
-                <input className='update-name' value={this.state.name} type='text' id='name' name='name' onChange={this.handleChangeName} />
-              </div>
-              <div>
-                <label htmlFor='bio'>Bio:</label>
-                  <textarea value={this.state.bio} id='bio' name='bio' onChange= {this.handleChangeBio}></textarea>
+                <div className='upload-container'>
+                    <input
+                      className='upload-image'
+                      type="file"
+                      name="image"
+                      ref={this.fileInputRef}
+                      accept=".png, .jpg, .jpeg, .gif" />
+                </div>
+              <div className='user-profile-bio'>
+                <div>
+                  <label htmlFor='name' className='update-name'>Name:</label>
+                  <input className='update-name' value={this.state.name} type='text' id='name' name='name' onChange={this.handleChangeName} />
+                </div>
+                <div>
+                  <label htmlFor='bio'>Bio:</label>
+                    <textarea value={this.state.bio} id='bio' name='bio' onChange= {this.handleChangeBio}></textarea>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className='update-details-container d-flex'>
-            <h1 className='details-heading text-center'>Rank</h1>
-            <p className='details-text'> Select One </p>
+            <div className='update-details-container d-flex'>
+              <h1 className='details-heading text-center'>Rank</h1>
+              <p className='details-text'> Select One </p>
+              <div className='details-container'>
+                <Select
+                  styles= { customStyles }
+                  isSearchable = { false }
+                  className='details-select'
+                  placeholder='Select Rank'
+                  id='rankId'
+                  name='rankId'
+                  options={ this.state.rankOptions }
+                  getOptionValue= {rank => rank.rankId }
+                  components= {{ Option: RankOptions, SingleValue: RankOptions }}
+                  value={ this.state.selectedRank }
+                  onChange= { this.handleChangeRank }
+                />
+              </div>
+              <h1 className='details-heading text-center'>Roles</h1>
+              <p className='details-text'> Select 2 </p>
+              <div className='details-container'>
+                <Select
+                  styles={ customStyles }
+                  isSearchable={ false }
+                  className='details-select'
+                  placeholder='Select Role'
+                  id='roles'
+                  name='roles'
+                  options={ this.state.roleOptions }
+                  getOptionValue={role => role.roleId}
+                  components={{ Option: RoleOptions, SingleValue: RoleOptions }}
+                  value={ this.state.selectedRoleOne }
+                  onChange={ this.handleChangeRoleOne }
+                />
+            </div>
+            <div className='details-container'>
+                <Select
+                  styles={ customStyles }
+                  isSearchable={ false }
+                  className='details-select'
+                  placeholder='Select Role'
+                  id='roles'
+                  name='roles'
+                  options={ this.state.roleOptions }
+                  getOptionValue={role => role.roleId}
+                  components={{ Option: RoleOptions, SingleValue: RoleOptions }}
+                  value={ this.state.selectedRoleTwo }
+                  onChange={ this.handleChangeRoleTwo }
+                />
+            </div>
+            <h1 className='details-heading text-center'>Champion Pool</h1>
+            <p className='details-text'>Select 3</p>
             <div className='details-container'>
               <Select
-                styles= { customStyles }
-                isSearchable = { false }
+                styles={ customStyles }
+                isSearchable={ false }
                 className='details-select'
-                placeholder='Select Rank'
-                id='rankId'
-                name='rankId'
-                options={ this.state.rankOptions }
-                getOptionValue= {rank => rank.rankId }
-                components= {{ Option: RankOptions, SingleValue: RankOptions }}
-                value={ this.state.selectedRank }
-                onChange= { this.handleChangeRank }
+                placeholder='Select Champion'
+                id='champions'
+                name='champions'
+                options={ this.state.championOptions }
+                getOptionValue={champion => champion.championId}
+                components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+                value={ this.state.selectedChampionOne }
+                onChange={ this.handleChangeChampionOne }
               />
             </div>
-            <h1 className='details-heading text-center'>Roles</h1>
-            <p className='details-text'> Select 2 </p>
             <div className='details-container'>
               <Select
                 styles={ customStyles }
                 isSearchable={ false }
                 className='details-select'
-                placeholder='Select Role'
-                id='roles'
-                name='roles'
-                options={ this.state.roleOptions }
-                getOptionValue={role => role.roleId}
-                components={{ Option: RoleOptions, SingleValue: RoleOptions }}
-                value={ this.state.selectedRoleOne }
-                onChange={ this.handleChangeRoleOne }
+                placeholder='Select Champion'
+                id='champions'
+                name='champions'
+                options={ this.state.championOptions }
+                getOptionValue={champion => champion.championId}
+                components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+                value={ this.state.selectedChampionTwo }
+                onChange={ this.handleChangeChampionTwo }
               />
-          </div>
-          <div className='details-container'>
+            </div>
+            <div className='details-container'>
               <Select
                 styles={ customStyles }
                 isSearchable={ false }
                 className='details-select'
-                placeholder='Select Role'
-                id='roles'
-                name='roles'
-                options={ this.state.roleOptions }
-                getOptionValue={role => role.roleId}
-                components={{ Option: RoleOptions, SingleValue: RoleOptions }}
-                value={ this.state.selectedRoleTwo }
-                onChange={ this.handleChangeRoleTwo }
+                placeholder='Select Champion'
+                id='champions'
+                name='champions'
+                options={this.state.championOptions }
+                getOptionValue={champion => champion.championId}
+                components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
+                value={ this.state.selectedChampionThree }
+                onChange={this.handleChangeChampionThree}
               />
+            </div>
           </div>
-          <h1 className='details-heading text-center'>Champion Pool</h1>
-          <p className='details-text'>Select 3</p>
-          <div className='details-container'>
-            <Select
-              styles={ customStyles }
-              isSearchable={ false }
-              className='details-select'
-              placeholder='Select Champion'
-              id='champions'
-              name='champions'
-              options={ this.state.championOptions }
-              getOptionValue={champion => champion.championId}
-              components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
-              value={ this.state.selectedChampionOne }
-              onChange={ this.handleChangeChampionOne }
-            />
+          <div className='update-button-container'>
+            <button className='text-center poppins-font update-button'>Update Profile</button>
           </div>
-          <div className='details-container'>
-            <Select
-              styles={ customStyles }
-              isSearchable={ false }
-              className='details-select'
-              placeholder='Select Champion'
-              id='champions'
-              name='champions'
-              options={ this.state.championOptions }
-              getOptionValue={champion => champion.championId}
-              components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
-              value={ this.state.selectedChampionTwo }
-              onChange={ this.handleChangeChampionTwo }
-            />
-          </div>
-          <div className='details-container'>
-            <Select
-              styles={ customStyles }
-              isSearchable={ false }
-              className='details-select'
-              placeholder='Select Champion'
-              id='champions'
-              name='champions'
-              options={this.state.championOptions }
-              getOptionValue={champion => champion.championId}
-              components={{ Option: ChampionOptions, SingleValue: ChampionOptions }}
-              value={ this.state.selectedChampionThree }
-              onChange={this.handleChangeChampionThree}
-            />
-          </div>
+          </form>
         </div>
-        <div className='update-button-container'>
-          <button className='text-center poppins-font update-button'>Update Profile</button>
-        </div>
-        </form>
       </div>
       </>
     );
