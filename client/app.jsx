@@ -8,8 +8,6 @@ import AppContext from './lib/app-context';
 import jwtDecode from 'jwt-decode';
 import NotFound from './pages/not-found';
 import Home from './pages/home';
-import SearchBar from './components/search-bar';
-import UserList from './components/user-list';
 import UpdateProfile from './components/update-profile';
 import MyProfile from './components/my-profile';
 
@@ -49,24 +47,13 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === 'auth') {
-      const action = route.params.get('action');
       return (
-        <Auth action={ action }/>
+        <Auth />
       );
-    } else if (route.path === '') {
+    } else if (route.path === 'filter' || route.path === '') {
       return (
         <>
-          <Home />
-        </>
-      );
-    } else if (route.path === 'filter') {
-      return (
-        <>
-          <Header />
-          <PageContainer>
-            <SearchBar />
-            <UserList routeParams={route.params} />;
-          </PageContainer>
+          <Home/>
         </>
       );
     } else if (route.path === 'update-profile') {
@@ -103,6 +90,7 @@ export default class App extends React.Component {
   }
 
   render() {
+
     if (this.state.isAuthorizing) return null;
     const { user, route } = this.state;
     const { handleSignIn, handleSignOut } = this;
