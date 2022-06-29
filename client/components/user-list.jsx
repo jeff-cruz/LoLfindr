@@ -35,7 +35,8 @@ export default class UserList extends React.Component {
   render() {
     const isLoading = this.state.isLoading ? '' : 'd-none';
     const hideOnLoad = this.state.isLoading ? 'd-none' : '';
-    return (
+    if (this.state.users.length !== 0) {
+      return (
       <div className='container user-list'>
         <Spinner animation="border" className={`loader + ${isLoading}`} variant="light" />
         <div className={'row ' + hideOnLoad}>
@@ -48,7 +49,14 @@ export default class UserList extends React.Component {
           }
         </div>
       </div>
-    );
+      );
+    } else {
+      return (
+      <div className='no-results text-center'>
+        <p>No results found. Try searching again. </p>
+      </div>
+      );
+    }
   }
 }
 

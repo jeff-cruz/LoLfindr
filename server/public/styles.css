@@ -26,10 +26,11 @@ body {
   position: fixed;
   top: 35%;
   left: 0%;
+  color: white;
 }
 
 .error-link {
-  color: #2764f6;
+  color: white;
 }
 
 /* nav bar */
@@ -46,7 +47,7 @@ body {
 .search-bar {
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-  height: 12rem;
+  height: 13rem;
   border-radius: 25px;
   position: sticky;
   z-index: 2;
@@ -270,6 +271,13 @@ body {
 
 .card-title {
   font-weight: 600;
+}
+
+.no-results {
+  color: white;
+  width: 50%;
+  height: auto;
+  margin: 2rem auto;
 }
 
 .user-list {
@@ -594,11 +602,6 @@ input:focus {
 
 /* user list: single column */
 @media screen and (min-width: 391px) and (max-width: 768px) {
-  /* search bar */
-  .search-bar {
-    height: 12rem;
-  }
-
   /* user card */
   .card-rank-icon {
     margin-left: 9rem;
