@@ -1,4 +1,5 @@
 import React from 'react';
+import NotFound from '../pages/not-found';
 
 export default class userProfile extends React.Component {
   constructor(props) {
@@ -18,8 +19,8 @@ export default class userProfile extends React.Component {
     if (!this.state.user) return null;
 
     const { imageUrl, name, bio, rankId, rankUrl, roles, champions } = this.state.user;
-
-    return (
+    if (imageUrl !== undefined) {
+      return (
       <div className='container user-profile poppins-font d-flex'>
         <div className='user-details-container glass-card'>
           <div className='text-center'>
@@ -69,6 +70,13 @@ export default class userProfile extends React.Component {
         </div>
 
       </div>
-    );
+      );
+    } else {
+      return (
+        <>
+        <NotFound/>
+        </>
+      );
+    }
   }
 }
