@@ -7,7 +7,15 @@ const customStyles = {
     return {
       ...provided, display: 'flex'
     };
-  }
+  },
+  control: (base, state) => ({
+    ...base,
+    border: '1px solid white',
+    boxShadow: 'none',
+    '&:hover': {
+      border: '1px solid white'
+    }
+  })
 };
 
 export default class UpdateProfile extends React.Component {
