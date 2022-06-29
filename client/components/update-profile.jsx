@@ -8,13 +8,15 @@ const customStyles = {
       ...provided, display: 'flex'
     };
   },
-  control: (base, state) => ({
+  control: (base, state, styles) => ({
     ...base,
     border: '1px solid white',
     boxShadow: 'none',
     '&:hover': {
       border: '1px solid white'
-    }
+    },
+    ...styles,
+    cursor: 'pointer'
   })
 };
 
@@ -217,7 +219,8 @@ export default class UpdateProfile extends React.Component {
                 <Select
                   styles= { customStyles }
                   isSearchable = { false }
-                  className='details-select'
+                  className='details-select react-select react-select-primary'
+                  classNamePrefix='react-select'
                   placeholder='Select Rank'
                   id='rankId'
                   name='rankId'
@@ -234,7 +237,8 @@ export default class UpdateProfile extends React.Component {
                 <Select
                   styles={ customStyles }
                   isSearchable={ false }
-                  className='details-select'
+                  className='details-select react-select react-select-primary'
+                  classNamePrefix='react-select'
                   placeholder='Select Role'
                   id='roles'
                   name='roles'
@@ -249,7 +253,8 @@ export default class UpdateProfile extends React.Component {
                 <Select
                   styles={ customStyles }
                   isSearchable={ false }
-                  className='details-select'
+                  className='details-select react-select react-select-primary'
+                  classNamePrefix='react-select'
                   placeholder='Select Role'
                   id='roles'
                   name='roles'
@@ -266,7 +271,8 @@ export default class UpdateProfile extends React.Component {
               <Select
                 styles={ customStyles }
                 isSearchable={ false }
-                className='details-select'
+                className='details-select react-select react-select-primary'
+                classNamePrefix='react-select'
                 placeholder='Select Champion'
                 id='champions'
                 name='champions'
@@ -281,7 +287,8 @@ export default class UpdateProfile extends React.Component {
               <Select
                 styles={ customStyles }
                 isSearchable={ false }
-                className='details-select'
+                className='details-select react-select react-select-primary'
+                classNamePrefix='react-select'
                 placeholder='Select Champion'
                 id='champions'
                 name='champions'
@@ -296,7 +303,8 @@ export default class UpdateProfile extends React.Component {
               <Select
                 styles={ customStyles }
                 isSearchable={ false }
-                className='details-select'
+                className='details-select react-select react-select-primary'
+                classNamePrefix='react-select'
                 placeholder='Select Champion'
                 id='champions'
                 name='champions'

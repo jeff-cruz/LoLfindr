@@ -1,6 +1,5 @@
 a,
-button,
-.filter-select {
+button {
   cursor: pointer;
 }
 
@@ -373,6 +372,12 @@ span {
 .search-container {
   display: flex;
   flex-direction: column;
+}
+
+.react-select,
+.react-select-primary {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 /* user profile */

@@ -7,13 +7,15 @@ const customStyles = {
       ...provided, display: 'flex'
     };
   },
-  control: (base, state) => ({
+  control: (base, state, styles) => ({
     ...base,
     border: '1px solid white',
     boxShadow: 'none',
     '&:hover': {
       border: '1px solid white'
-    }
+    },
+    ...styles,
+    cursor: 'pointer'
   })
 };
 
@@ -82,36 +84,39 @@ export default class SearchBar extends React.Component {
               <Select
                 styles= { customStyles }
                 isSearchable = { false }
-                className='filter-select'
                 placeholder='Select Rank'
                 options={ this.state.ranks }
                 components= {{ Option: RankFilter, SingleValue: RankFilter }}
                 value={ this.state.selectedRank }
                 onChange= { this.handleChangeRank }
+                className="react-select react-select-primary"
+                classNamePrefix="react-select"
               />
             </div>
             <div className='filter-container'>
               <Select
                 styles={ customStyles }
                 isSearchable={ false }
-                className='filter-select'
                 placeholder='Select Role'
                 options={ this.state.roles }
                 components={{ Option: RoleFilter, SingleValue: RoleFilter }}
                 value={ this.state.selectedRole }
                 onChange={ this.handleChangeRole }
+                className="react-select react-select-primary"
+                classNamePrefix="react-select"
               />
           </div>
           <div className='filter-container'>
             <Select
               styles={ customStyles }
               isSearchable={ false }
-              className='filter-select'
               placeholder='Select Champion'
               options={ this.state.champions }
               components={{ Option: ChampionFilter, SingleValue: ChampionFilter }}
               value={ this.state.selectedChampion }
               onChange={ this.handleChangeChampion }
+              className="react-select react-select-primary"
+              classNamePrefix="react-select"
             />
           </div>
           <div className='button-container'>
