@@ -392,7 +392,7 @@ span {
 .user-profile {
   margin-top: 1rem;
   flex-direction: column;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .user-details-container {
@@ -500,6 +500,7 @@ span {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  overflow: hidden;
 }
 
 .update-glass-card {
