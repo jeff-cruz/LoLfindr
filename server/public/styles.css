@@ -496,6 +496,12 @@ span {
 }
 
 /* edit profile page */
+.update-user-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .update-glass-card {
   background-color: rgba(255, 255, 255, 0.35);
   padding-top: 1.25rem;
@@ -538,6 +544,8 @@ span {
 
 .update-form {
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .update-button-container {
@@ -743,8 +751,7 @@ input:focus {
 
   /* edit profile page */
   .update-user-container {
-    display: flex;
-    flex-direction: row;
+    justify-content: flex-start;
   }
 
   .update-details-container {
@@ -760,11 +767,12 @@ input:focus {
   }
 
   .update-form {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     display: flex;
     flex-wrap: wrap;
     position: fixed;
+    flex-direction: row;
     justify-content: space-around;
     overflow: auto;
   }
